@@ -1,0 +1,6 @@
+@use "react-widgets/scss/styles.scss" with (
+    $widget-font-size: 14px,
+    $input-height: 2.0em,
+
+    // Most component variables are forwarded with a namespace
+);

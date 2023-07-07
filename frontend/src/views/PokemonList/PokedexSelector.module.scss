@@ -1,0 +1,25 @@
+@use '../../styles/colours.scss';
+
+.selectorContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+    label {
+        font-size: 14px;
+        padding: 3px;
+    }
+
+    label.notSelected{
+
+    }
+
+    label.selected{
+        background-color: colours.$medium-light-grey;
+        color: black;
+
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+        border-right: none;
+    }
+}

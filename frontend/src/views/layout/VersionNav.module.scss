@@ -1,0 +1,53 @@
+@use '../../styles/colours.scss';
+
+$version-navbar-height: 80px;
+$button-radius: 20px;
+$button-padding: 5px;
+$overhead-spacing: 10px;
+
+.container {
+    background-color: colours.$yellow;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%
+}
+
+.navbar {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    align-items: flex-end;
+
+    width: 50%;
+    height: $version-navbar-height;
+    background-color: colours.$yellow;
+
+    a {
+        text-decoration: none;
+        background-color: colours.$yellow;
+        text-align: center; 
+        color: black;
+        padding: $button-padding;
+        height: calc($version-navbar-height - $overhead-spacing - 2 * $button-padding);
+    }
+
+    .active {
+        border: 2px colours.$black solid;
+        border-top-right-radius: $button-radius;
+        border-top-left-radius: $button-radius;
+        border-bottom: none;
+        background-color: colours.$light-grey;
+    }
+}
+
+.versionLogo {
+    height: 50px
+}
+
+.content {
+    height: calc(100% - #{$version-navbar-height});
+    width: 100%;
+    background-color: colours.$light-grey;
+}

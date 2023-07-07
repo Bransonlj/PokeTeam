@@ -1,0 +1,22 @@
+.teamBuilderContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    > div {
+
+    }
+}
+
+.memberContainer {
+    box-sizing: border-box;
+    width: 410px;
+    padding: 5px;
+}
+
+.testing {
+
+    .Collapsible__trigger is-closed{
+        background-color: pink;
+    }
+}

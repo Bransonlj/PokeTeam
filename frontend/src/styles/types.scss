@@ -1,0 +1,131 @@
+$normalType: #A8A878;
+$fireType: #F08030;
+$waterType: #6890F0;
+$electricType: #F8D030;
+$grassType: #78C850;
+$iceType: #98D8D8;
+$fightingType: #C03028;
+$poisonType: #A040A0;
+$groundType: #E0C068;
+$flyingType: #A890F0;
+$psychicType: #F85888;
+$bugType: #A8B820;
+$rockType: #B8A038;
+$ghostType: #705898;
+$dragonType: #7038F8;
+$darkType: #705848;
+$steelType: #B8B8D0;
+$fairyType: #EE99AC;
+
+$typeColours: (
+    normal: #A8A878,
+    fire: #F08030,
+    water: #6890F0,
+    electric: #F8D030,
+    grass: #78C850,
+    ice: #98D8D8,
+    fighting: #C03028,
+    poison: #A040A0,
+    ground: #E0C068,
+    flying: #A890F0,
+    psychic: #F85888,
+    bug: #A8B820,
+    rock: #B8A038,
+    ghost: #705898,
+    dragon: #7038F8,
+    dark: #705848,
+    steel: #B8B8D0,
+    fairy: #EE99AC, 
+);
+
+span.type {
+    border: 2px white solid;
+    box-sizing: border-box;
+    border-radius: 10px;
+    padding: 3px;
+    padding-left: 5px;
+    padding-right: 5px;
+    color: white;
+    margin: 2px;
+    font-size: 12px
+
+}
+
+@each $key, $value in $typeColours {
+    span.#{$key} {
+        background-color: #{$value};
+    }
+}
+/**
+span.normal {
+    background-color: $normalType;
+}
+
+span.fire {
+    background-color: $fireType;
+}
+
+span.water {
+    background-color: $waterType;
+}
+
+span.electric {
+    background-color: $electricType;
+}
+
+span.grass {
+    background-color: $grassType;
+}
+
+span.ice {
+    background-color: $iceType;
+}
+
+span.fighting {
+    background-color: $fightingType;
+}
+
+span.poison {
+    background-color: $poisonType;
+}
+
+span.ground {
+    background-color: $groundType;
+}
+
+span.flying {
+    background-color: $flyingType;
+}
+
+span.psychic {
+    background-color: $psychicType;
+}
+
+span.bug {
+    background-color: $bugType;
+}
+
+span.rock {
+    background-color: $rockType;
+}
+
+span.ghost {
+    background-color: $ghostType;
+}
+
+span.dragon {
+    background-color: $dragonType;
+}
+
+span.dark {
+    background-color: $darkType;
+}
+
+span.steel {
+    background-color: $steelType;
+}
+
+span.fairy {
+    background-color: $fairyType;
+}
+*/

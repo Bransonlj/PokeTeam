@@ -1,0 +1,34 @@
+import React, { useEffect } from 'react'
+import { formatName } from '../../utils/formatters';
+import styles from './PokedexSelector.module.scss'
+
+export default function PokedexSelector({ selectedPokedex, setSelectedPokedex, pokedexes, versionGroup }) {
+
+    const EXCEPTIONS = [
+        {
+            version: "brilliant-diamond-and-shining-pearl",
+            pokedexes: ["original-sinnoh", "extended-sinnoh"]
+            
+        }
+    ]
+
+    // if version group exists in list of exceptions, get list of pokedexes, else get empty array.
+    const verifiedPokedexes = pokedexes.length > 0 ? (pokedexes.map(pokedex => pokedex.name)) : (EXCEPTIONS.find((obj) => obj.version === versionGroup)?.pokedexes ?? []);
+    
+    useEffect(() => {
+        console.log("pokedex has changed!")
+        setSelectedPokedex(verifiedPokedexes[0]);
+    }, [versionGroup])
+
+    return (
+        <div className={styles.selectorContainer}>
+            { verifiedPokedexes.map(pokedex => (
+                <label 
+                    key={ pokedex } 
+                    onClick={ () => setSelectedPokedex(pokedex) }
+                    className={selectedPokedex === pokedex ? styles.selected : styles.notSelected}
+                >{ formatName(pokedex) }</label>
+            )) }
+        </div>
+  )
+}

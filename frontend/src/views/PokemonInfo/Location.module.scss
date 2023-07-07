@@ -1,0 +1,15 @@
+.container {
+
+}
+
+.locationContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    border: 1px black solid;
+    border-radius: 5px;
+    
+    p {
+        margin: 5px;
+    }
+}

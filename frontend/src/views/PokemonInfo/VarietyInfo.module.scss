@@ -1,0 +1,48 @@
+@use '../../styles/types';
+@use '../../styles/colours';
+
+.infoContainer {
+    display: flex;
+    flex-direction: column;
+    max-height: 100%;
+
+}
+
+.summaryCard {
+    display: flex;
+    flex-direction: row;
+    border-top: 1px black solid;
+    border-bottom: 1px black solid;
+    padding: 5px;
+
+    .rightSide {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+
+        button {
+            width: fit-content;
+            align-self: flex-end;
+            margin: 5px;
+            margin-bottom: 0px;
+        }
+    }
+}
+
+.spriteCard {
+    display: flex;
+    flex-direction: column;
+    border: 1px black solid;
+    margin: 5px;
+    border-radius: 10px;
+    flex: 1 0 40%;
+    background-color: colours.$medium-light-grey;
+
+    .sprite {
+        border: 1px black solid;
+        margin: 10px;
+        border-radius: 10px;
+        background-color: colours.$light-grey;
+    }
+}
+

@@ -1,0 +1,51 @@
+@use '../../styles/colours.scss';
+
+$navbar-height: 30px;
+$button-radius: 10px;
+
+.container {
+    background-color: colours.$blue;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.navbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+
+
+    width: 50%;
+    height: $navbar-height;
+
+    a {
+        text-decoration: none;
+        background-color: colours.$blue;
+        text-align: center; 
+        color: black;
+        padding: 2px;
+
+        &:hover {
+            background-color: colours.$light-blue;
+        }
+    
+    }
+    .active {
+        border: 2px colours.$black solid;
+        border-top-right-radius: $button-radius;
+        border-top-left-radius: $button-radius;
+        border-bottom: none;
+        background-color: colours.$yellow;
+
+        &:hover {
+            background-color: colours.$yellow;
+        }
+    }
+}
+
+.content {
+    height: calc(100% - #{$navbar-height});
+    width: 100%;
+    background-color: colours.$light-grey;
+}

@@ -1,0 +1,44 @@
+@use '../../styles/colours.scss';
+
+.mainContainer {
+    width: 100%;
+
+    h2 {
+
+    }
+}
+
+.tableContainer{
+    border: 1px black solid;
+    border-radius: 10px;
+    background-color: colours.$medium-light-grey;
+}
+
+.statContainer {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    border: 1px black solid;
+}
+
+.statTable {
+    border-spacing: 0;
+    border-collapse: collapse;
+    margin: 2%;
+    width: 96%;
+
+    th {
+        border: 1px black solid;
+    }
+}
+
+.statBar {
+    background-color: red;
+    margin: 5px;
+    height: 20px;
+}
+
+.statBarCell {
+    width: 255px;
+    border: 1px black solid;
+}

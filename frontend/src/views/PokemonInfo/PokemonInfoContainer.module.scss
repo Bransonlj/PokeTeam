@@ -1,0 +1,45 @@
+@use '../../styles/colours.scss';
+
+$selector-height: 30px;
+
+.container {
+    max-height: 100%;
+    min-height: 50%;
+
+    box-sizing: border-box;
+    border: 1px black solid;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    padding-top: 5px;
+    margin: 5px;
+    margin-bottom: 0px;
+    background-color: colours.$blue;
+
+}
+
+.pokemonInfoContainer {
+    overflow-y: scroll;
+    height: calc(100% - $selector-height);
+    background-color: colours.$light-grey;
+}
+
+.varietySelctor {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    height : $selector-height;
+}
+
+.varietyButton {
+    box-sizing: border-box;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    padding: 2px;
+    padding-left: 5px;
+    padding-right: 5px;
+
+}
+
+.selected { 
+    background-color: colours.$light-grey;;
+}

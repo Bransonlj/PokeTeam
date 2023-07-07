@@ -1,0 +1,35 @@
+@use '../styles/colours.scss';
+
+.mainContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    min-width: 1000px;
+    height: 100%;
+    border: 2px colours.$black solid;
+}
+
+.pokedexContainer {
+    flex: 1 1 40%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    height: 100%;
+
+
+    .pokedexListContainer {
+        display: flex;
+        flex-direction: row;
+        border: 1px black solid;
+        border-radius: 5px;
+        padding: 5px;
+        margin: 5px;
+        background-color: colours.$medium-grey;
+    }
+}
+
+.teamBuilderContainer {
+    flex: 1 1 60%;
+    overflow-y: scroll;
+    max-height: 100%;
+}

@@ -1,0 +1,56 @@
+@use '../../styles/types';
+
+.matchupContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin: 5px;
+}
+
+$defaultSecondTypeColour: white;
+
+.cardContainer {
+    display: flex;
+    flex-direction: column;
+    border: 2px white solid;
+    border-radius: 10px;
+    margin: 3px;
+}
+
+@each $key, $value in types.$typeColours {
+    .cardContainer.type-#{$key} {
+        background: linear-gradient( to right top, #{$value}, 70%, #{$defaultSecondTypeColour} );
+    }
+}
+
+.matchupContainer > * {
+    border: 2px black solid;
+    border-radius: 10px;
+    width: 200px;
+    margin: 5px;
+    padding: 5px;
+}
+
+.immune {
+    background: #577590;
+}
+
+.notEffectiveX4 {
+    background: #43aa8b;
+}
+
+.notEffectiveX2 {
+    background: #90be6d
+}
+
+.effective {
+    background: #f9c74f;
+}
+
+.superEffectiveX4 {
+    background: #f94144;
+}
+
+.superEffectiveX2 {
+    background: #f8961e;
+}
