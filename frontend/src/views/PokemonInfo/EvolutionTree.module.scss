@@ -1,10 +1,64 @@
+@use '../../styles/colours.scss';
+
+$sprite-wdith: 96px;
+$sprite-height: 96px;
+
 .evolutionTreeContainer {
     display: flex;
     flex-direction: row;
+    align-items: center;
+
+    background-color: colours.$light-grey;
+
+    width: fit-content;
+
 }
 
+// holds an evolution tree for each species given pokemon can evolve into
+.childrenEvolutionTreeContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+// card contains both the evolution method if applicable and pokemon
 .evolutionCard {
-    border: 1px black solid;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5px;
+    background-color: colours.$medium-light-grey;
+    border: 3px colours.$medium-grey solid ;
+    border-radius: 10px;
+    
+
+}
+
+// contains sprites of all varieties of given species
+.varietiesContainer {
     display: flex;
     flex-direction: row;
+    justify-content: center;
+    .sprite {
+        width: $sprite-wdith;
+        height: $sprite-height;
+        background-color: colours.$light-grey;
+        border-radius: 10px;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
 }
+
+// contains methods for all varieties of given species
+.evolutionMethod {
+    display: flex;
+    flex-direction: column;
+    label {
+        font-size: 0.5em;
+        white-space: nowrap;
+    }
+}
+

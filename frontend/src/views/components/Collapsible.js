@@ -7,9 +7,9 @@ export default function Collapsible({ children, title }) {
 
   return (
     <div>
-        <label onClick={() => setIsShow(!isShow)}>{ title } </label>
+        <div className={styles.header} onClick={() => setIsShow(!isShow)}>{ title } </div>
         <div className={classNames(styles.content, (isShow ? styles.showing : ""))}>
-                {children}
+            {children}
         </div>
     </div>
   )

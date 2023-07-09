@@ -1,28 +1,26 @@
 @use '../../styles/types';
+@use '../../styles/colours.scss';
 
 
 
-.moveTable {
-    border: 1px black solid;
-    border-radius: 5px;
-    
-
-    table {
-        margin: 5px;
-        border-spacing: 0;
-        border-collapse: collapse;
-    }
-    
-    th {
-        border: 1px black solid;
-    }
-    
-    td {
-        border: 1px black solid;
-        padding: 2px;
-        min-width: 40px;
-    }
+table {
+    margin: 5px;
+    border-spacing: 0;
+    border-collapse: collapse;
+    background-color: colours.$light-grey;
 }
+
+th {
+    border: 1px black solid;
+    background-color: colours.$medium-light-grey;
+}
+
+td {
+    border: 1px black solid;
+    padding: 2px;
+    min-width: 40px;
+}
+
 
 
 @each $key, $value in types.$typeColours {

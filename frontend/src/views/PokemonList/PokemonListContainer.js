@@ -44,7 +44,7 @@ export default function PokemonListContainer({ pokedex, setSelectedPokemon }) {
 
         const name = pokemonList[index].pokemon_species.name;
         return (
-            <label className={styles[index % 2 === 0 ? 'evenRow' : 'oddRow']} style={style} onClick={() => setSelectedPokemon(name)}>{formatName(name)}</label>
+            <label className={classNames(styles.row, styles[index % 2 === 0 ? 'evenRow' : 'oddRow'])} style={style} onClick={() => setSelectedPokemon(name)}>{formatName(name)}</label>
         )
     }
 
@@ -55,7 +55,7 @@ export default function PokemonListContainer({ pokedex, setSelectedPokemon }) {
     return (
         <div className={styles.container}>
             <div className={styles.searchContainer}>
-            <label>search</label>
+            <label>Search</label>
             <input 
                 onChange={(e) => {setSearchFilter(e.target.value)}}
                 value={searchFilter}/>

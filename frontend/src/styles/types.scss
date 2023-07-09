@@ -38,6 +38,49 @@ $typeColours: (
     fairy: #EE99AC, 
 );
 
+$dark-typeColours: (
+    normal: #6D6D4E,
+    fire: #9C531F,
+    water: #445E9C,
+    electric: #A1871F,
+    grass: #4E8234,
+    ice: #638D8D,
+    fighting: #7D1F1A,
+    poison: #682A68,
+    ground: #927D44,
+    flying: #6D5E9C,
+    psychic: #A13959,
+    bug: #6D7815,
+    rock: #786824,
+    ghost: #493963,
+    dragon: #4924A1,
+    dark: #49392F,
+    steel: #787887,
+    fairy: #9B6470, 
+);
+
+$light-typeColours: (
+    normal: #C6C6A7,
+    fire: #F5AC78,
+    water: #9DB7F5,
+    electric: #FAE078,
+    grass: #A7DB8D,
+    ice: #BCE6E6,
+    fighting: #D67873,
+    poison: #C183C1,
+    ground: #EBD69D,
+    flying: #C6B7F5,
+    psychic: #FA92B2,
+    bug: #C6D16E,
+    rock: #D1C17D,
+    ghost: #A292BC,
+    dragon: #A27DFA,
+    dark: #A29288,
+    steel: #D1D1E0,
+    fairy: #F4BDC9, 
+);
+
+
 span.type {
     border: 2px white solid;
     box-sizing: border-box;
@@ -54,6 +97,7 @@ span.type {
 @each $key, $value in $typeColours {
     span.#{$key} {
         background-color: #{$value};
+        border-color: map-get($map: $dark-typeColours, $key: $key);
     }
 }
 /**

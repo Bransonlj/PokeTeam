@@ -31,6 +31,10 @@ $overhead-spacing: 10px;
         color: black;
         padding: $button-padding;
         height: calc($version-navbar-height - $overhead-spacing - 2 * $button-padding);
+
+        &:hover {
+            background-color: colours.$light-yellow;
+        }
     }
 
     .active {
@@ -39,6 +43,10 @@ $overhead-spacing: 10px;
         border-top-left-radius: $button-radius;
         border-bottom: none;
         background-color: colours.$light-grey;
+
+        &:hover {
+            background-color: colours.$light-grey;
+        }
     }
 }
 

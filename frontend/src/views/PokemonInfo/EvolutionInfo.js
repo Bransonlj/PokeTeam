@@ -37,8 +37,8 @@ export default function EvolutionInfo({ evolutionChainURL, setSelectedVariety, s
     const evolutionTree = processEvolutionChain(data.chain)
 
     return (
-        <div>
+        <>
             <EvolutionTree tree={evolutionTree} setSelectedVariety={setSelectedVariety} setSelectedPokemon={setSelectedPokemon} />
-        </div>
+        </>
     )
 }

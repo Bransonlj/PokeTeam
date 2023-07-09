@@ -1,0 +1,21 @@
+@use '../../styles/types.scss';
+
+@each $key1, $value1 in types.$typeColours {
+    @each $key2, $value2 in types.$typeColours {
+            .type1-#{$key1}.type2-#{$key2} {
+                border: 3px map-get($map: types.$dark-typeColours, $key: $key2) solid;
+                background-color: #{$value1};
+                padding: 5px;
+                border-radius: 10px;
+                width: fit-content;
+            }
+    }
+
+    .type1-#{$key1} {
+        border: 3px map-get($map: types.$dark-typeColours, $key: $key1) solid;
+        background-color: #{$value1};
+        padding: 5px;
+        border-radius: 10px;
+        width: fit-content;
+    }
+}

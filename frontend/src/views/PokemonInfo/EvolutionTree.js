@@ -25,24 +25,24 @@ export default function EvolutionTree({ tree, setSelectedVariety, setSelectedPok
 
     return (
         <div className={styles.evolutionTreeContainer}>
-
-            <div>
-                {evolutionVarieties.map((variety, index) => (
-                    <div key={index} className={styles.evolutionCard}>
-                        <div className={styles.evolutionMethod}>
-                            {tree.value.evolution_details.map((detail, index) => (
-                                <p key={index}>{formatEvolutionDetails(detail)}</p>
-                            ))}
-                        </div>
-                        <img 
-                            src={getSpriteURL(urlToId(variety.pokemon.url))} 
-                            onClick={() => {setSelectedVariety(variety.pokemon.name); setSelectedPokemon(pokemon);}}
-                        />
-                    </div>
-                )) }
+            <div className={styles.evolutionCard}>
+                <div className={styles.evolutionMethod}>
+                    {tree.value.evolution_details.map((detail, index) => (
+                        <label key={index}>{formatEvolutionDetails(detail)}</label>
+                    ))}
+                </div>
+                <div className={styles.varietiesContainer}>
+                    {evolutionVarieties.map((variety, index) => (
+                            <img 
+                                key={index}
+                                className={styles.sprite}
+                                src={getSpriteURL(urlToId(variety.pokemon.url))} 
+                                onClick={() => {setSelectedVariety(variety.pokemon.name); setSelectedPokemon(pokemon);}}
+                            />
+                    )) }
+                </div>
             </div>
-
-            <div>
+            <div className={styles.childrenEvolutionTreeContainer}>
             { tree.hasChildren() && tree.getChildren().map((child, index) => (
                 <EvolutionTree key={index} tree={child} setSelectedVariety={setSelectedVariety} setSelectedPokemon={setSelectedPokemon}/>
             )) }

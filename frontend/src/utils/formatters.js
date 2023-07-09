@@ -28,10 +28,10 @@ const EvolutionDetailFields = {
     GENDER: "gender",
     HELD_ITEM: "held_item",
     KNOWN_MOVE: "known_move",
-    KNOWN_MOVE_TYPE: "known_move-type",
+    KNOWN_MOVE_TYPE: "known_move_type",
     LOCATION: "location",
     MIN_LEVEL: "min_level",
-    MIN_HAPPINESS: "MIN_HAPPINESS",
+    MIN_HAPPINESS: "min_happiness",
     MIN_BEAUTY: "min_beauty",
     MIN_AFFECTION: "min_affection",
     NEEDS_OVERWORLD_RAIN: "needs_overworld_rain",
@@ -51,46 +51,63 @@ export function formatEvolutionDetails(detail) {
         .map(method => {
             switch (method) {
                 case EvolutionDetailFields.ITEM: // item object
-                    return detail[method].name;
+                    return formatName(detail[method].name);
+
                 case EvolutionDetailFields.GENDER: // integer
                     return getGenderFromId(detail[method]);
+
                 case EvolutionDetailFields.HELD_ITEM: // item object
                     return detail[method].name;
+
                 case EvolutionDetailFields.KNOWN_MOVE: // move object
                     return detail[method].name;
+
                 case EvolutionDetailFields.KNOWN_MOVE_TYPE: // type object
-                    return detail[method].name;
+                    return `knowing ${formatName(detail[method].name)} Type move`;
+
                 case EvolutionDetailFields.LOCATION: // location object
-                    return detail[method].name;
+                    return `at ${formatName(detail[method].name)}`;
+
                 case EvolutionDetailFields.MIN_LEVEL: // integer
                     return detail[method];
+
                 case EvolutionDetailFields.MIN_HAPPINESS: // integer
-                    return detail[method];
+                    return `min happiness: ${detail[method]}`;
+
                 case EvolutionDetailFields.MIN_BEAUTY: // integer
-                    return detail[method];
+                    return `min beauty: ${detail[method]}`;
+
                 case EvolutionDetailFields.MIN_AFFECTION: // integer
-                    return detail[method];
+                    return `min affection: ${detail[method]}`;
+
                 case EvolutionDetailFields.NEEDS_OVERWORLD_RAIN: // boolean
                     return detail[method] ? "while raining" : "";   
+
                 case EvolutionDetailFields.PARTY_SPECIES: // pokemonSpecies object
                     return "in party:" + detail[method].name;
+
                 case EvolutionDetailFields.PARTY_TYPE: // type object
                     return "in party:" + detail[method].name;
+
                 case EvolutionDetailFields.RELATIVE_PHYSICAL_STATS: // integer
                     return detail[method];
+
                 case EvolutionDetailFields.TIME_OF_DAY: // string(day or night)
                     return detail[method];
+
                 case EvolutionDetailFields.TRADE_SPECIES: // pokemonSpecies object
                     return "trade with:" + detail[method].name;
+
                 case EvolutionDetailFields.TURN_UPSIDE_DOWN: // boolean
                     return detail[method] ? "turn upside down" : "";
+                    
                 default:
                     return "unknown method"
             }
 
             
     }) 
-    return "by " + detail.trigger.name + requirements.join();
+    return formatName(detail.trigger.name) + " " + requirements.join(" & ");
 }
 
 /**

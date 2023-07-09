@@ -8,7 +8,7 @@ import LevelUpMovesTable from './LevelUpMovesTable'
 // filters move array for move_learn_method matches given method.
 const filterMoves = (movesToFilter, method) => movesToFilter.filter(move => move.move_learn_method === method);
 
-export default function MoveList({ moves, version }) {
+export default function MoveList({ moves, version, type1, type2 }) {
 
   // filters to moves learnable in specified version only.
   const versionMoves = moves.map(move => {
@@ -70,15 +70,15 @@ export default function MoveList({ moves, version }) {
   return (
     <div>
       <h2>Level Up Moves</h2>
-      <LevelUpMovesTable moves={ levelUpMoves } />
+      <LevelUpMovesTable moves={ levelUpMoves } type1={ type1 } type2={ type2 } />
       <h2>Machine Moves</h2>
-      <MachineMovesTable moves={ machineMoves } versionGroup={ version } />
+      <MachineMovesTable moves={ machineMoves } versionGroup={ version } type1={ type1 } type2={ type2 } />
       <h2>Tutor Moves</h2>
-      <GenericMovesTable header={ "tutor moves" }moves={ tutorMoves } />
+      <GenericMovesTable moves={ tutorMoves } type1={ type1 } type2={ type2 } />
       <h2>Egg Moves</h2>
-      <GenericMovesTable header={"egg moves"} moves={ eggMoves } />
+      <GenericMovesTable moves={ eggMoves } type1={ type1 } type2={ type2 } />
       { formChangeMoves.length > 0 && <h2>Form Change Moves</h2> }
-      { formChangeMoves.length > 0 && <GenericMovesTable header={"form change"} moves={ formChangeMoves } />}
+      { formChangeMoves.length > 0 && <GenericMovesTable moves={ formChangeMoves } type1={ type1 } type2={ type2 } />}
     </div>
   )
 }

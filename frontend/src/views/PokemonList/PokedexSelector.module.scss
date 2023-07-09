@@ -8,18 +8,33 @@
     label {
         font-size: 14px;
         padding: 3px;
+
+        &:hover {
+            cursor: pointer;
+        }
+
+        &.selected{
+            background-color: colours.$medium-light-grey;
+            color: black;
+    
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+            border-right: none;
+        }
+
+        &.notSelected{
+            &:hover {
+                background-color: colours.$dark-grey;
+                color: colours.$light-grey;
+        
+                border-top-left-radius: 5px;
+                border-bottom-left-radius: 5px;
+                border-right: none;
+            }
+        }
     }
 
-    label.notSelected{
 
-    }
 
-    label.selected{
-        background-color: colours.$medium-light-grey;
-        color: black;
 
-        border-top-left-radius: 5px;
-        border-bottom-left-radius: 5px;
-        border-right: none;
-    }
 }

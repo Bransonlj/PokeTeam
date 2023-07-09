@@ -1,44 +1,57 @@
 @use '../../styles/colours.scss';
 
 .mainContainer {
-    width: 100%;
+    box-sizing: border-box;
+    background-color: colours.$medium-light-grey;
+    border-radius: 10px;
+    padding: 5px;
+    margin: 10px;
+    text-align: center;
 
-    h2 {
-
+    label {
+        font-size: 1.5em;
+        font-weight: bold;
     }
 }
 
-.tableContainer{
-    border: 1px black solid;
-    border-radius: 10px;
-    background-color: colours.$medium-light-grey;
-}
 
 .statContainer {
     display: flex;
     flex-direction: row;
     width: 100%;
     border: 1px black solid;
+
+}
+
+.tableContainer {
+    background-color: colours.$light-grey;
+    border-radius: 10px;
+    padding: 5px;
 }
 
 .statTable {
     border-spacing: 0;
     border-collapse: collapse;
-    margin: 2%;
-    width: 96%;
+
+    background-color: colours.$light-grey;
 
     th {
         border: 1px black solid;
+        background-color: colours.$medium-light-grey;
     }
 }
 
 .statBar {
-    background-color: red;
-    margin: 5px;
-    height: 20px;
+    background-color: maroon;
+    margin: 3px;
+    height: 25px;
 }
 
 .statBarCell {
     width: 255px;
-    border: 1px black solid;
+    //border: 1px black solid;
+}
+
+.emptyTD {
+    background-color: colours.$medium-light-grey;
 }

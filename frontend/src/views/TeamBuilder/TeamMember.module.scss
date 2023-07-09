@@ -9,6 +9,9 @@ $container-fixed-height: 200px;
 $sprite-width: 96px;
 $sprite-height: 96px;
 
+
+
+// member container contains: infoContainer & movesContainer.
 .memberContainer {
     display: flex;
     flex-direction: row;
@@ -16,7 +19,6 @@ $sprite-height: 96px;
     align-items: center;
 
     box-sizing: border-box;
-    border: 1px black solid;
     border-radius: 15px;
     padding: 10px;
     height: $container-fixed-height;
@@ -28,6 +30,8 @@ $sprite-height: 96px;
 
 }
 
+
+// setting background colours
 @each $key1, $value1 in types.$typeColours {
     @each $key2, $value2 in types.$typeColours {
         .memberContainer.type1-#{$key1}.type2-#{$key2} {
@@ -39,6 +43,7 @@ $sprite-height: 96px;
     }
 }
 
+// for empty team slot
 .memberContainer.empty {
     border: none;
     background: linear-gradient( to right, colours.$black, 30%, colours.$light-grey);
@@ -51,8 +56,7 @@ $sprite-height: 96px;
 
 }
 
-// member container contains: infoContainer & movesContainer.
-
+// info container contains name, sprite, type, ability
 .infoContainer {
     display: flex;
     flex-direction: column;
@@ -61,18 +65,44 @@ $sprite-height: 96px;
     box-sizing: border-box;
     padding: 5px;
 
+    // contains name and delete button
     .nameContainer {
         width: 100%;
         display: flex;
         flex-direction: row;
-        justify-content: space-between;
-        background-color: white;
+        justify-content: space-around;
+
+        .removeButton {
+            margin: 0;
+
+            p {
+                margin: 0;
+            }
+        }
+
+        label {
+            background-color: colours.$light-grey;
+            border-radius: 10px;
+            padding: 5px;
+            border: 2px colours.$dark-grey solid;
+
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+
+
     }
 
     .sprite {
         height: $sprite-height;
         width: $sprite-width;
         object-fit: contain;
+
+        &:hover {
+            cursor: pointer;
+        }
     }
 
     .typeContainer {
@@ -95,7 +125,4 @@ $sprite-height: 96px;
     flex-direction: column;
     justify-content: space-around;
     padding: 5px;
-}
-
-.moveSelector {
 }

@@ -40,9 +40,11 @@ export default function PokemonInfoContainer({ pokemon, versionGroup, addMember,
         )) }
       </div>
       <div className={styles.pokemonInfoContainer}>
-        <Collapsible title="evolutions">
-          <EvolutionInfo evolutionChainURL={data.evolution_chain.url} setSelectedVariety={setSelectedVariety} setSelectedPokemon={setSelectedPokemon}/>
-        </Collapsible>
+        <div className={styles.evolutionContainer}>
+          <Collapsible title={<p style={{fontWeight: "bold"}}>Evolutions</p>}>
+            <EvolutionInfo evolutionChainURL={data.evolution_chain.url} setSelectedVariety={setSelectedVariety} setSelectedPokemon={setSelectedPokemon}/>
+          </Collapsible>
+        </div>
         {selectedVariety && <VarietyInfo species={pokemon} variety={selectedVariety} versionGroup={versionGroup} addMember={addMember} />}
       </div>
     </div>

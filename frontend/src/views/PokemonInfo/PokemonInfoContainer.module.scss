@@ -14,13 +14,20 @@ $selector-height: 30px;
     margin: 5px;
     margin-bottom: 0px;
     background-color: colours.$blue;
+    width: 90%;
 
+}
+
+.evolutionContainer {
+    border-top: 2px colours.$medium-grey solid;
+    border-bottom: 2px colours.$medium-grey solid;
 }
 
 .pokemonInfoContainer {
     overflow-y: scroll;
     height: calc(100% - $selector-height);
     background-color: colours.$light-grey;
+    width: 100%;
 }
 
 .varietySelctor {
@@ -28,6 +35,7 @@ $selector-height: 30px;
     flex-direction: row;
     justify-content: space-around;
     height : $selector-height;
+    border-bottom: 2px colours.$light-grey solid;
 }
 
 .varietyButton {
@@ -38,8 +46,16 @@ $selector-height: 30px;
     padding-left: 5px;
     padding-right: 5px;
 
+    &:hover {
+        cursor: pointer;
+        background-color: colours.$light-blue;
+    }
+
 }
 
 .selected { 
     background-color: colours.$light-grey;;
+    &:hover {
+        background-color: colours.$light-grey;
+    }
 }

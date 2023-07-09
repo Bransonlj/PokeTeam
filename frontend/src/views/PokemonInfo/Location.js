@@ -2,8 +2,9 @@ import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import React from 'react'
 import styles from './Location.module.scss'
+import ThemedBox from '../components/ThemedBox'
 
-export default function Location({ variety, encounterURL, versionGroup }) {
+export default function Location({ variety, encounterURL, versionGroup, types }) {
 
     const { isLoading: isLoadingVersions, error: versionsError, data: versionsData, isFetching: isFetchingVersions } = useQuery({
         queryKey: ['versionGroup', versionGroup],
@@ -41,12 +42,14 @@ export default function Location({ variety, encounterURL, versionGroup }) {
     return (
         <div className={styles.container}>
             <h2>Location</h2>
-            <div className={styles.locationContainer}>
-                {versionLocations.map((location, index) => (
-                    <p key={index}>{location.name} {location.versions.length !== versions.length ? location.versions.join(", ") : ""}</p>
-                ))}
-                {versionLocations.length === 0 && <p>None</p>}
-            </div>
+            <ThemedBox type1={types[0]} type2={types[1]}>
+                <div className={styles.locationContainer}>
+                    {versionLocations.map((location, index) => (
+                        <p key={index}>{location.name} {location.versions.length !== versions.length ? location.versions.join(", ") : ""}</p>
+                    ))}
+                    {versionLocations.length === 0 && <p>None</p>}
+                </div>
+            </ThemedBox>
 
         </div>
   )

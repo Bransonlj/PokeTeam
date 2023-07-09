@@ -35,13 +35,13 @@ export default function TeamMember({ versionGroup, member, deleteMember, updateM
                 <div className={styles.infoContainer}>
                     <div className={styles.nameContainer}>
                         <label onClick={ () => {setSelectedVariety(member.name); setSelectedPokemon(member.species);} }> { formatName(member.name) }</label>
-                        <button type='button' className={styles.removeButton} onClick={() => deleteMember(index)}>X</button>
+                        <button type='button' className={styles.removeButton} onClick={() => deleteMember(index)}>x</button>
                     </div>
                     
                     <img className={styles.sprite} onClick={ () => {setSelectedVariety(member.name); setSelectedPokemon(member.species);} } src={getSpriteURL(member.id)}></img>
                     <div className={styles.typeContainer}>
-                        <span className={classNames(styles.type, styles[member.type1])}>{ member.type1 }</span>
-                        {member.type2 && <span className={classNames(styles.type, styles[member.type2])}>{ member.type2 }</span>}
+                        <span className={classNames(styles.type, styles[member.type1])}>{ formatName(member.type1) }</span>
+                        {member.type2 && <span className={classNames(styles.type, styles[member.type2])}>{ formatName(member.type2) }</span>}
                     </div>
                     <DropdownList 
                         busy={isLoading} 

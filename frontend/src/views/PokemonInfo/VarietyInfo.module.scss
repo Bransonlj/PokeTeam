@@ -11,14 +11,13 @@
 .summaryCard {
     display: flex;
     flex-direction: row;
-    border-top: 1px black solid;
-    border-bottom: 1px black solid;
     padding: 5px;
 
     .rightSide {
         display: flex;
         flex-direction: column;
-        justify-content: flex-start;
+        justify-content: space-around;
+        margin: 5px;
 
         button {
             width: fit-content;
@@ -27,16 +26,41 @@
             margin-bottom: 0px;
         }
     }
+
+    @each $key1, $value1 in types.$light-typeColours {
+        @each $key2, $value2 in types.$dark-typeColours {
+        .type1-#{$key1}.type2-#{$key2} {
+                border: 2px $value2 solid;
+                background-color: $value1;
+                border-radius: 10px;
+            }
+        }
+        .type1-#{$key1} {
+            border: 2px map-get($map: types.$dark-typeColours, $key: $key1) solid;
+            background-color: $value1;
+            border-radius: 10px;
+        }
+    }
+    
 }
+
 
 .spriteCard {
     display: flex;
     flex-direction: column;
-    border: 1px black solid;
     margin: 5px;
-    border-radius: 10px;
     flex: 1 0 40%;
-    background-color: colours.$medium-light-grey;
+    align-items: center;
+
+    .typeContainer {
+        background-color: colours.$light-grey;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        border-radius: 10px;
+        width: fit-content;
+        margin: 10px;
+    }
 
     .sprite {
         border: 1px black solid;

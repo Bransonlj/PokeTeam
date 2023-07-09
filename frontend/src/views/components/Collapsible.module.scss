@@ -1,8 +1,15 @@
-$background-colour: #ffffcc !default;
+@use '../../styles/colours.scss';
+
+.header {
+    margin-bottom: 5px;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
 
 .content {
-    background: $background-colour;
-    width: 100%;
+    width: fit-content;
     overflow: hidden;
     max-height: 0;
     transition: all 0.5s ease-in-out;
@@ -10,9 +17,11 @@ $background-colour: #ffffcc !default;
     overflow: hidden;
     box-sizing: border-box;
 
+
 }
 
 .showing {
-    max-height: 200px;
-    overflow-y: scroll;
+    max-height: 300px;
+    overflow-y: auto;
+    overflow-x: auto;
 }

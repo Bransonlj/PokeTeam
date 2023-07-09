@@ -11,13 +11,23 @@
 .List {
     border: 1px black solid;
     border-radius: 5px;
-    background-color: #f8f8f0;
+    background-color: colours.$light-grey;
     font-size: 14px;
 }
 
-.evenRow {
+.row {
 
+    &:hover {
+        cursor: pointer;
+        background-color: white;
+    }
+
+    &.evenRow {
+
+    }
+    
 }
+
 
 .searchContainer {
     padding: 5px;

@@ -1,10 +1,11 @@
 import React from 'react'
 import styles from './MovesTable.module.scss'
 import { formatName } from '../../utils/formatters'
+import ThemedBox from '../components/ThemedBox'
 
-export default function GenericMovesTable({ header, moves }) {
+export default function GenericMovesTable({ moves, type1, type2 }) {
     return (
-        <div className={styles.moveTable}>
+        <ThemedBox type1={type1} type2={type2}>
           <table>
             <thead>
               <tr>
@@ -29,6 +30,6 @@ export default function GenericMovesTable({ header, moves }) {
               )) }
             </tbody>
           </table>
-        </div>
+        </ThemedBox>
       )
 }

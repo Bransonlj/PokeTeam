@@ -1,6 +1,7 @@
 import React from 'react'
 import styles from './IndividualType.module.scss'
 import classNames from 'classnames'
+import { formatName } from '../../utils/formatters'
 
 const valueToEffectiveness = (value) => {
   switch (value) {
@@ -24,10 +25,10 @@ const valueToEffectiveness = (value) => {
 export default function IndividualType({ type, pokemonMatchups }) {
   return (
     <div className={classNames(styles.cardContainer, styles[`type-${type}`])}>
-        <span className={classNames(styles.type, styles[type])}>{ type }</span>
+        <span className={classNames(styles.type, styles[type])}>{ formatName(type) }</span>
         <div className={styles.matchupContainer}>
           {pokemonMatchups.map(pokemon => (
-              <p className={styles[valueToEffectiveness(pokemon.value)]} key={pokemon.name}>{pokemon.name} {pokemon.value}</p>
+              <p className={styles[valueToEffectiveness(pokemon.value)]} key={pokemon.name}>{formatName(pokemon.name)} <p> x{pokemon.value}</p></p>
           ))}
         </div>
     </div>

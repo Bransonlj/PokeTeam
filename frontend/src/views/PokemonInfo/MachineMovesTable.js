@@ -3,6 +3,7 @@ import axios from 'axios';
 import React from 'react'
 import styles from './MovesTable.module.scss'
 import { formatName } from '../../utils/formatters';
+import ThemedBox from '../components/ThemedBox';
 
 const sortingFunction = (m1, m2) => {
     // if tm vs hm, sort tm first
@@ -13,7 +14,7 @@ const sortingFunction = (m1, m2) => {
     return m1 > m2 ? 1 : m1 < m2 ? -1 : 0;
 }
 
-export default function MachineMovesTable({ moves, versionGroup }) {
+export default function MachineMovesTable({ moves, versionGroup, type1, type2 }) {
 
     const machineMoveQueries = moves.map(move => {
         return {
@@ -45,7 +46,7 @@ export default function MachineMovesTable({ moves, versionGroup }) {
         }).sort((move1, move2) => sortingFunction(move1.machine, move2.machine));
 
     return (
-    <div className={styles.moveTable}>
+    <ThemedBox type1={type1} type2={type2}>
         <table>
             <thead>
                 <tr>
@@ -72,6 +73,6 @@ export default function MachineMovesTable({ moves, versionGroup }) {
                 )) }
             </tbody>
         </table>
-    </div>
+    </ThemedBox>
     )
 }

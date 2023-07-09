@@ -8,6 +8,7 @@ import Location from './Location'
 import { getSpriteURL } from '../../utils/urls'
 import styles from'./VarietyInfo.module.scss'
 import classNames from 'classnames'
+import ThemedBox from '../components/ThemedBox'
 
 export default function VarietyInfo({ species, variety, versionGroup, addMember }) {
 
@@ -22,29 +23,32 @@ export default function VarietyInfo({ species, variety, versionGroup, addMember 
 
     if (error) return 'An error has occurred: ' + error.message
     
+    // the name of the types of this variety in an array. Eg. [fire, water]
     const simpleTypes = data.types.map(type => type.type.name);
 
 
     return (
         <div className={styles.infoContainer}>
-
-            <div className={styles.summaryCard}>
-                <div className={styles.spriteCard}>
-                    <img className={styles.sprite} src={ getSpriteURL(data.id) } />
-                    <div>
-                        { data.types.map(type => (
-                            <span key={ type.slot } className={classNames(styles.type, styles[type.type.name])}> { type.type.name }</span>
-                        )) }
+            <ThemedBox type1={simpleTypes[0]} type2={simpleTypes[1]} >
+                <div className={styles.summaryCard}>
+                    <div className={classNames(styles.spriteCard, styles[`type1-${simpleTypes[0]}`], styles[`type2-${simpleTypes[1]}`])}>
+                        <img className={styles.sprite} src={ getSpriteURL(data.id) } />
+                        <div className={styles.typeContainer}>
+                            { data.types.map(type => (
+                                <span key={ type.slot } className={classNames(styles.type, styles[type.type.name])}> { type.type.name }</span>
+                            )) }
+                        </div>
+                        <Abilities abilities={data.abilities} />
                     </div>
-                    <Abilities abilities={data.abilities} />
+                    <div className={classNames(styles.rightSide, styles[`type1-${simpleTypes[0]}`], styles[`type2-${simpleTypes[1]}`])}>
+                        <button type="button" onClick={() => addMember(data.id, variety, species, ...simpleTypes)}>add to team</button>
+                        <Stats stats={data.stats} types={simpleTypes} />
+                    </div>
+                        
                 </div>
-                <div className={styles.rightSide}>
-                    <button type="button" onClick={() => addMember(data.id, variety, species, ...simpleTypes)}>add to team</button>
-                    <Stats stats={data.stats} />
-                </div>
-            </div>
-            <Location encounterURL={data.location_area_encounters} variety={variety} versionGroup={versionGroup} />
-            <MoveList moves={data.moves} version={versionGroup} />
+            </ThemedBox>
+            <Location encounterURL={data.location_area_encounters} variety={variety} versionGroup={versionGroup} types={simpleTypes} />
+            <MoveList moves={data.moves} version={versionGroup} type1={simpleTypes[0]} type2={simpleTypes[1]}/>
         </div>
     )
 }

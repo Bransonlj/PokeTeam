@@ -1,5 +1,6 @@
 import React from 'react'
 import styles from './Stats.module.scss';
+import ThemedBox from '../components/ThemedBox';
 
 const getStatValue = (statName, stats) => {
     return stats.find(stat => stat.stat.name === statName).base_stat;
@@ -20,27 +21,40 @@ const StatKeys = {
     SPEED: {value: "speed", label: "Speed"},
 }
 
-export default function Stats({ stats }) {
+const getStatTotal = (stats) => {
+    let total = 0;
+    Object.keys(StatKeys).map(stat => {total += getStatValue(StatKeys[stat].value, stats);})
+    return total;
+
+}
+
+export default function Stats({ stats, types }) {
     return (
         <div className={styles.mainContainer}>
-            <h2>Stats</h2>
-            <div className={styles.tableContainer}>
-                <table className={styles.statTable}>
-                    <tbody>
-                        {
-                            Object.keys(StatKeys).map(stat => (
-                                <tr>
-                                    <th>{StatKeys[stat].label}: {getStatValue(StatKeys[stat].value, stats)}</th>
-                                    <td className={styles.statBarCell}>
-                                        <div className={styles.statBar} style={statBarStyle(getStatValue(StatKeys[stat].value, stats))} />
-                                    </td>
-                                </tr>
-                            ))
-                        }
+            <label>Stats</label>
+                <div className={styles.tableContainer}>
+                    <table className={styles.statTable}>
+                        <tbody>
+                            {
+                                Object.keys(StatKeys).map(stat => (
+                                    <tr>
+                                        <th>{StatKeys[stat].label}: {getStatValue(StatKeys[stat].value, stats)}</th>
+                                        <td className={styles.statBarCell}>
+                                            <div className={styles.statBar} style={statBarStyle(getStatValue(StatKeys[stat].value, stats))} />
+                                        </td>
+                                    </tr>
+                                ))
+                            }
+                            <tr>
+                                <th>
+                                    Total: {getStatTotal(stats)}
+                                </th>
+                                <td className={styles.emptyTD}/>
+                            </tr>
 
-                    </tbody>
-                </table>
-            </div>
+                        </tbody>
+                    </table>
+                </div>
         </div>
     )
 }

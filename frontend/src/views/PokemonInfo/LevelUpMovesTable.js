@@ -1,8 +1,9 @@
 import React from 'react'
 import styles from './MovesTable.module.scss'
 import { formatName } from '../../utils/formatters';
+import ThemedBox from '../components/ThemedBox';
 
-export default function  LevelUpMovesTable({ moves }) {
+export default function  LevelUpMovesTable({ moves, type1, type2 }) {
 
     const levelUpMoves = moves
             .sort((m1, m2) => m1.level_learned_at > m2.level_learned_at ? 1 : m1.level_learned_at < m2.level_learned_at ? -1 : 0)
@@ -14,7 +15,7 @@ export default function  LevelUpMovesTable({ moves }) {
             });
 
     return (
-        <div className={styles.moveTable}>
+        <ThemedBox type1={type1} type2={type2}>
             <table>
                 <thead>
                     <tr>
@@ -41,6 +42,6 @@ export default function  LevelUpMovesTable({ moves }) {
                     )) }
                 </tbody>
             </table>
-        </div>
+        </ThemedBox>
     )
   }
