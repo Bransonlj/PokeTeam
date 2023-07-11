@@ -16,7 +16,7 @@ export default function PokedexSelector({ selectedPokedex, setSelectedPokedex, p
     const verifiedPokedexes = pokedexes.length > 0 ? (pokedexes.map(pokedex => pokedex.name)) : (EXCEPTIONS.find((obj) => obj.version === versionGroup)?.pokedexes ?? []);
     
     useEffect(() => {
-        console.log("pokedex has changed!")
+        // preemptively select the first version pokedex when versionGroup changes
         setSelectedPokedex(verifiedPokedexes[0]);
     }, [versionGroup])
 

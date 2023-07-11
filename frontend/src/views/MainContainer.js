@@ -1,29 +1,60 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useSearchParams } from 'react-router-dom'
 import PokemonListContainer from './PokemonList/PokemonListContainer';
 import PokemonInfoContainer from './PokemonInfo/PokemonInfoContainer';
 import TeamBuilderContainer from './TeamBuilder/TeamBuilderContainer';
 import useTeam from './hooks/useTeam';
 import PokedexSelector from './PokemonList/PokedexSelector';
 import styles from './MainContainer.module.scss';
+import { isValidTeamHex, createTeamFromHex, teamToHex } from '../utils/team';
 
 
 export default function MainContainer() {
-    console.log("MAIN CONTAINER RE-RENDERS")
     const [selectedPokedex, setSelectedPokedex] = useState("");
     const [selectedPokemon, setSelectedPokemon] = useState("");
     const [selectedVariety, setSelectedVariety] = useState("");
+    const [isValidTeamURL, setIsValidTeamURL] = useState(false);
     const { gen: generation, version: versionGroup } = useParams();
-    const { team, isError, errorMessage, addMember, deleteMember, updateMember, loadTeam } = useTeam(JSON.parse(localStorage.getItem(`team-${versionGroup}`)));
+
+    // get team from url if applicable
+    const [searchParams, setSearchParams] = useSearchParams();
+    const teamHex = searchParams.get("team")
+
+    const { team, 
+        isError, 
+        errorMessage, 
+        addMember,
+        deleteMember, 
+        updateMember, 
+        loadTeam 
+    } = useTeam(createTeamFromHex(localStorage.getItem(`team-${versionGroup}`)));
 
     useEffect(() => {
-        localStorage.setItem(`team-${versionGroup}`, JSON.stringify(team))
+        if (isValidTeamHex(teamHex)) {
+            console.log("valid")
+            setIsValidTeamURL(true);
+            loadTeam(createTeamFromHex(teamHex))
+        } else {
+            console.log("invalid")
+            setIsValidTeamURL(false);
+        }
+    }, [teamHex])
+
+    useEffect(() => {
+        // only save team to cache if not loading team from url.
+        if (!isValidTeamURL) {
+            localStorage.setItem(`team-${versionGroup}`, teamToHex(team))
+        }
+
     }, [team])
 
     useEffect(() => {
-        loadTeam(JSON.parse(localStorage.getItem(`team-${versionGroup}`)));
+        // reload team and unselect pokemon when new versionGroup is selected.
+        if (!isValidTeamURL) {
+            loadTeam(createTeamFromHex(localStorage.getItem(`team-${versionGroup}`)));
+        }
         setSelectedPokemon("")
         setSelectedVariety("");
     }, [versionGroup])

@@ -1,13 +1,26 @@
+
 /**
  * Returns whether a variety name is a mega-evolution based on
- * if it ends with '-mega';
+ * if it ends with '-mega(-x/y)';
+ * @param {string} variety 
+ * @returns {boolean} mega?
+ */
+export function isMega(name) {
+    return (name.endsWith('-mega')
+            || name.endsWith('-mega-x')
+            || name.endsWith('-mega-y'))
+}
+
+/**
+ * Returns whether a variety name is standard, meaning not mega, gmax or starter.
  * @param {string} variety 
  * @returns {boolean} standard?
  */
 export function isStandardVariety(variety) {
-    return !(variety.endsWith('-mega') 
-            || variety.endsWith('-gmax')
-            || variety.endsWith('-starter'));
+    return !(isMega(variety)
+            || variety.endsWith('-gmax') // possibly create an array for all exlusion rules
+            || variety.endsWith('-starter')
+            || variety.endsWith('-totem'));
 }
 
 export function getGenderFromId(id) {
@@ -57,10 +70,10 @@ export function formatEvolutionDetails(detail) {
                     return getGenderFromId(detail[method]);
 
                 case EvolutionDetailFields.HELD_ITEM: // item object
-                    return detail[method].name;
+                    return formatName(detail[method].name);
 
                 case EvolutionDetailFields.KNOWN_MOVE: // move object
-                    return detail[method].name;
+                    return formatName(detail[method].name);
 
                 case EvolutionDetailFields.KNOWN_MOVE_TYPE: // type object
                     return `knowing ${formatName(detail[method].name)} Type move`;
@@ -116,6 +129,9 @@ export function formatEvolutionDetails(detail) {
  * @returns {String} formatted string.
  */
 export function formatName(str) {
+    if (!str) {
+        return str;
+    }
     return str.split("-")
             .map(word =>
                     word.charAt(0).toUpperCase() + word.substring(1))

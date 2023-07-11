@@ -21,7 +21,6 @@ function processEvolutionChain(chain) {
 
 export default function EvolutionInfo({ evolutionChainURL, setSelectedVariety, setSelectedPokemon }) {
 
-    console.log(evolutionChainURL)
     const { isLoading, error, data, isFetching } = useQuery({
         queryKey: ['EvolutionChain', urlToId(evolutionChainURL)],
         queryFn: () =>

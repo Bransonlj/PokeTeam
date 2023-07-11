@@ -8,47 +8,49 @@ import { getSpriteURL } from '../../utils/urls';
 import classNames from 'classnames';
 import './test.scss';
 import { formatName } from '../../utils/formatters';
+import useFetchVariety from '../hooks/useFetchVariety';
 
+export default function TeamMember({ versionGroup, member, deleteMember, updateMemeber, memberIndex, setSelectedVariety, setSelectedPokemon }) {
 
-export default function TeamMember({ versionGroup, member, deleteMember, updateMemeber, index, setSelectedVariety, setSelectedPokemon }) {
+    // memeber object = {id, abilityIndex, move1Index...move4Index}
+    const { isLoading, error, data } = useFetchVariety(member.id);
 
-    const { isLoading, error, data, isFetching } = useQuery({
-        queryKey: ['PokemonVarietyInfo', member.name],
-        queryFn: () =>
-            axios
-                .get(`https://pokeapi.co/api/v2/pokemon/${member.name}`)
-                .then((res) => res.data),
-    })
     if (isLoading) return 'Loading...'
 
     if (error) return 'An error has occurred: ' + error.message
 
+    const types = data.types.map(type => type.type.name);
+
     const versionMoves = filterByVersion(data?.moves, versionGroup);
 
-    const uniqueMoves = versionMoves?.map(move => formatName(move.move.name)).sort();
+    const uniqueMoves = versionMoves?.map(move => formatName(move.move.name))
+            .sort() // sort first then map again to ensure final index id will be in order
+            .map((move, index) => {return {id: index, name: move}});
 
-    const uniqueAbilities = data.abilities.map(ability => formatName(ability.ability.name));
+    const uniqueAbilities = data.abilities.map((ability, index) => {return { id: index, name: formatName(ability.ability.name)}});
 
     return (
         <>
-            {member && <div className={classNames(styles.memberContainer, styles[`type1-${member.type1}`], styles[member.type2 ? `type2-${member.type2}` : ""])}>
+            {member && <div className={classNames(styles.memberContainer, styles[`type1-${types[0]}`], styles[types[1] ? `type2-${types[1]}` : ""])}>
                 <div className={styles.infoContainer}>
                     <div className={styles.nameContainer}>
-                        <label onClick={ () => {setSelectedVariety(member.name); setSelectedPokemon(member.species);} }> { formatName(member.name) }</label>
-                        <button type='button' className={styles.removeButton} onClick={() => deleteMember(index)}>x</button>
+                        <label onClick={ () => {setSelectedVariety(data.name); setSelectedPokemon(data.species.name);} }> { formatName(data.name) }</label>
+                        <button type='button' className={styles.removeButton} onClick={() => deleteMember(memberIndex)}>x</button>
                     </div>
                     
-                    <img className={styles.sprite} onClick={ () => {setSelectedVariety(member.name); setSelectedPokemon(member.species);} } src={getSpriteURL(member.id)}></img>
+                    <img className={styles.sprite} onClick={ () => {setSelectedVariety(data.name); setSelectedPokemon(data.species.name);} } src={getSpriteURL(member.id)}></img>
                     <div className={styles.typeContainer}>
-                        <span className={classNames(styles.type, styles[member.type1])}>{ formatName(member.type1) }</span>
-                        {member.type2 && <span className={classNames(styles.type, styles[member.type2])}>{ formatName(member.type2) }</span>}
+                        <span className={classNames(styles.type, styles[types[0]])}>{ formatName(types[0]) }</span>
+                        {types[1] && <span className={classNames(styles.type, styles[types[1]])}>{ formatName(types[1]) }</span>}
                     </div>
                     <DropdownList 
                         busy={isLoading} 
                         data={uniqueAbilities}
+                        dataKey='id'
+                        textField='name'
                         placeholder='abilities'
-                        value={member.ability}
-                        onChange={(value) => updateMemeber({...member, ability: value}, index)}
+                        value={uniqueAbilities[member.abilityIndex]}
+                        onChange={(value) => updateMemeber({...member, abilityIndex: value.id}, memberIndex)}
                     />
                 </div>
                 <div className={styles.movesContainer}>
@@ -56,36 +58,44 @@ export default function TeamMember({ versionGroup, member, deleteMember, updateM
                         <DropdownList 
                             busy={isLoading} 
                             data={uniqueMoves}
+                            dataKey='id'
+                            textField='name'
                             placeholder='select move...'
-                            value={member.move1}
-                            onChange={(value) => updateMemeber({...member, move1: value}, index)}
+                            value={uniqueMoves[member.move1Index]}
+                            onChange={(value) => updateMemeber({...member, move1Index: value.id}, memberIndex)}
                         />
                     </span>
                     <span className={styles.moveSelector}>
                         <DropdownList 
                             busy={isLoading} 
                             data={uniqueMoves}
+                            dataKey='id'
+                            textField='name'
                             placeholder='select move...'
-                            value={member.move2}
-                            onChange={(value) => updateMemeber({...member, move2: value}, index)}
+                            value={uniqueMoves[member.move2Index]}
+                            onChange={(value) => updateMemeber({...member, move2Index: value.id}, memberIndex)}
                         />
                     </span>
                     <span className={styles.moveSelector}>
                         <DropdownList 
                             busy={isLoading} 
                             data={uniqueMoves}
+                            dataKey='id'
+                            textField='name'
                             placeholder='select move...'
-                            value={member.move3}
-                            onChange={(value) => updateMemeber({...member, move3: value}, index)}
+                            value={uniqueMoves[member.move3Index]}
+                            onChange={(value) => updateMemeber({...member, move3Index: value.id}, memberIndex)}
                         />
                     </span>
                     <span className={styles.moveSelector}>
                         <DropdownList 
                             busy={isLoading} 
                             data={uniqueMoves}
+                            dataKey='id'
+                            textField='name'
                             placeholder='select move...'
-                            value={member.move4}
-                            onChange={(value) => updateMemeber({...member, move4: value}, index)}
+                            value={uniqueMoves[member.move4Index]}
+                            onChange={(value) => updateMemeber({...member, move4Index: value.id}, memberIndex)}
                         />
                     </span>
                 </div>

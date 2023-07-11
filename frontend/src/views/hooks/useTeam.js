@@ -4,12 +4,12 @@ export default function useTeam(savedTeam) {
     const [team, setTeam] = useState(savedTeam ? savedTeam : []);
     const [isError, setIsError] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
-
+    
     function loadTeam(teamToLoad) {
         setTeam(teamToLoad ? teamToLoad : [])
     }
 
-    function addMember(id, pokemon, species, ...types) {
+    function addMember(id) {
         if (team.length > 5) {
             setIsError(true);
             setErrorMessage("Team full, unable to add anymore members");
@@ -18,15 +18,6 @@ export default function useTeam(savedTeam) {
             setErrorMessage("");
             setTeam([...team, {
                 id: id,
-                name: pokemon,
-                species: species,
-                type1: types[0],
-                type2: types[1] ?? "",
-                ability: "",//defaults to null
-                move1: "",
-                move2: "",
-                move3: "",
-                move4: "",
             }]);
         }
     }
@@ -42,6 +33,8 @@ export default function useTeam(savedTeam) {
         }
     }
 
+    // member must be a valid object: {id, abilityIndex, move1Index...move4Index}
+    // fields other than id may be left undefined.
     function updateMember(newMember, index) {
         if (team[index] === undefined) {
             setIsError(true);

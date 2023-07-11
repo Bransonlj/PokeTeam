@@ -4,6 +4,10 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { getSpriteURL, urlToId } from '../../utils/urls';
 import { formatEvolutionDetails, isStandardVariety } from '../../utils/formatters';
+import Tippy from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css';
+
+const METHOD_WARNING_STRING = "Evolution methods for different varieties (i.e. Kantonian/Alolan Sandslash) are grouped together."
 
 export default function EvolutionTree({ tree, setSelectedVariety, setSelectedPokemon }) {
 
@@ -27,9 +31,15 @@ export default function EvolutionTree({ tree, setSelectedVariety, setSelectedPok
         <div className={styles.evolutionTreeContainer}>
             <div className={styles.evolutionCard}>
                 <div className={styles.evolutionMethod}>
-                    {tree.value.evolution_details.map((detail, index) => (
-                        <label key={index}>{formatEvolutionDetails(detail)}</label>
-                    ))}
+                    { evolutionVarieties.length > 1 ? tree.value.evolution_details.map((detail, index) => (
+                            <Tippy content={METHOD_WARNING_STRING}>
+                                <label key={index}>{formatEvolutionDetails(detail)}</label>
+                            </Tippy>
+                            )) : tree.value.evolution_details.map((detail, index) => (
+                                <label key={index}>{formatEvolutionDetails(detail)}</label>
+                            ))
+                        
+                    }
                 </div>
                 <div className={styles.varietiesContainer}>
                     {evolutionVarieties.map((variety, index) => (

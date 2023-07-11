@@ -9,6 +9,7 @@ import { getSpriteURL } from '../../utils/urls'
 import styles from'./VarietyInfo.module.scss'
 import classNames from 'classnames'
 import ThemedBox from '../components/ThemedBox'
+import { formatName } from '../../utils/formatters'
 
 export default function VarietyInfo({ species, variety, versionGroup, addMember }) {
 
@@ -35,13 +36,13 @@ export default function VarietyInfo({ species, variety, versionGroup, addMember 
                         <img className={styles.sprite} src={ getSpriteURL(data.id) } />
                         <div className={styles.typeContainer}>
                             { data.types.map(type => (
-                                <span key={ type.slot } className={classNames(styles.type, styles[type.type.name])}> { type.type.name }</span>
+                                <span key={ type.slot } className={classNames(styles.type, styles[type.type.name])}> { formatName(type.type.name) }</span>
                             )) }
                         </div>
                         <Abilities abilities={data.abilities} />
                     </div>
                     <div className={classNames(styles.rightSide, styles[`type1-${simpleTypes[0]}`], styles[`type2-${simpleTypes[1]}`])}>
-                        <button type="button" onClick={() => addMember(data.id, variety, species, ...simpleTypes)}>add to team</button>
+                        <button type="button" onClick={() => addMember(data.id)}>add to team</button>
                         <Stats stats={data.stats} types={simpleTypes} />
                     </div>
                         
