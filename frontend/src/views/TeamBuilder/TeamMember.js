@@ -10,14 +10,23 @@ import './test.scss';
 import { formatName } from '../../utils/formatters';
 import useFetchVariety from '../hooks/useFetchVariety';
 
-export default function TeamMember({ versionGroup, member, deleteMember, updateMemeber, memberIndex, setSelectedVariety, setSelectedPokemon }) {
+export default function TeamMember({ setIsTeamValid, versionGroup, member, deleteMember, updateMemeber, memberIndex, setSelectedVariety, setSelectedPokemon }) {
 
     // memeber object = {id, abilityIndex, move1Index...move4Index}
-    const { isLoading, error, data } = useFetchVariety(member.id);
+    const { isLoading, error, isError, data } = useFetchVariety(member.id);
 
     if (isLoading) return 'Loading...'
 
-    if (error) return 'An error has occurred: ' + error.message
+    if (isError) {
+        setIsTeamValid(false);
+        console.log(error.message)
+        return (
+            <div>
+                <h2>{'Error occured, invalid team member'}</h2>
+                <button type='button' className={styles.removeButton} onClick={() => deleteMember(memberIndex)}>x</button>
+            </div>
+        )
+    }
 
     const types = data.types.map(type => type.type.name);
 

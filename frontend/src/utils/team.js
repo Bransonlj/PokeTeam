@@ -1,14 +1,36 @@
+
+// member code: YYYYZAABBCCDD
+const memberHexLength = 13;
+
 /**
  * Checks given object to verify if it is a valid team object to be loaded.
  * @param {*} teamObj 
  */
-export function isValidTeamHex(teamHex) {
+export async function asyncValidateTeamHex(teamHex, validCallback, invalidCallback = () => {}) {
     if (!teamHex) {
         return false;
     }
     // TODO check length and ID params if valid ID
-    return true;
 
+    const teamQueries = await Promise.all(teamHex.split(",").map(async memberHex => {
+        if (memberHex.length !== memberHexLength) {
+            return false;
+        }
+        try {
+            const result = await fetch(`https://pokeapi.co/api/v2/pokemon/${hexToNum(memberHex.slice(0, 4))}`)
+            const pokemon = await result.json()
+            return pokemon.name;
+        } catch (error) {
+            return false;
+        }
+    }))
+
+    const isValid = teamQueries.every(x => x);
+    if (isValid) {
+        validCallback();
+    } else {
+        invalidCallback();
+    }
 }
 
 
@@ -21,7 +43,7 @@ function hexToNum(hex) {
 
 /**
  * Creates team based on given hexString. hexString is in the format,
- * xYYYYxZxAAxBBxCCxDD: where YYYY is the id of the pokemon variety, Z is the ability number,
+ * YYYYZAABBCCDD: where YYYY is the id of the pokemon variety, Z is the ability number,
  * AA - DD are each the index of the move from the learnable moves array.
  * Each team member is seperated by a ','.
  * @param {string} hexString

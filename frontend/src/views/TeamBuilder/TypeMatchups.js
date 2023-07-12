@@ -31,15 +31,19 @@ export default function TypeMatchups({ team, generation }) {
         }
     })
 
-    // nested array of types.
+    // data: nested array of types.
     const typesInTeamResults = useQueries({ queries: typesInTeamQueries})
 
     const isLoadingTeam = typesInTeamResults.some(r => r.isLoading);
 
-    // check if all data is loaded.
+    // error fetching team?
+    const isErrorTeam = typesInTeamResults.some(r => r.isError);
+    const allErrorsTeam = typesInTeamResults.filter(r => r.isError).map(r => r.error.message);
+
+    // check if all data is loaded to run dependent query
     const isEnabled = typesInTeamResults.every(r => r.data);
 
-    // flattens the pairs of types into an array for parallel querying.
+    // flattens the pairs of types into an array for dependent querying.
     const flatTypeArray = typesInTeamResults.flatMap(r => r.data?.types)
 
     const allTypeQueries = flatTypeArray.map(type => {
@@ -77,6 +81,16 @@ export default function TypeMatchups({ team, generation }) {
     if (isLoadingTypes) {
         return 'Loading Matchups';
     }
+
+    if (isErrorTeam) {
+        return (
+            <div>
+                {allErrorsTeam.map(error => (
+                    <h2>{error}</h2>
+                ))}
+            </div>
+        )
+    } 
 
     // group types back into pairs (each pair representing a pokemon)
     const groupedTypes = [];

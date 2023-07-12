@@ -8,7 +8,7 @@ import TeamBuilderContainer from './TeamBuilder/TeamBuilderContainer';
 import useTeam from './hooks/useTeam';
 import PokedexSelector from './PokemonList/PokedexSelector';
 import styles from './MainContainer.module.scss';
-import { isValidTeamHex, createTeamFromHex, teamToHex } from '../utils/team';
+import { createTeamFromHex, teamToHex } from '../utils/team';
 import useLoadingTeamHex from './hooks/useLoadingTeamHex';
 
 
@@ -19,7 +19,7 @@ export default function MainContainer() {
 
     const { gen: generation, version: versionGroup } = useParams();
 
-    const { teamHex, setTeamHex, isLoadFromHex, clearLoadedTeam } = useLoadingTeamHex();
+    const { teamHex, setTeamHex, isLoadFromHex, clearLoadedTeam, isError: isErrorLoadingHex , clearError } = useLoadingTeamHex();
 
     const { team, 
         isError, 
@@ -95,6 +95,8 @@ export default function MainContainer() {
             </div>
             <div className={styles.teamBuilderContainer}>
                 <TeamBuilderContainer 
+                    clearError={clearError}
+                    isErrorLoadingHex={isErrorLoadingHex}
                     clearLoadedTeam={clearLoadedTeam}
                     isLoadFromHex={isLoadFromHex}
                     teamHex={teamHex}

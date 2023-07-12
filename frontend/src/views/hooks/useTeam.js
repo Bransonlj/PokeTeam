@@ -6,6 +6,7 @@ export default function useTeam(savedTeam) {
     const [errorMessage, setErrorMessage] = useState("");
     
     function loadTeam(teamToLoad) {
+        // check if valid?
         console.log(teamToLoad)
         setTeam(teamToLoad ? teamToLoad : [])
     }
