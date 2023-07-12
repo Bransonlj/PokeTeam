@@ -5,22 +5,24 @@ import styles from './TeamBuilderContainer.module.scss'
 import EmptyMember from './EmptyMember'
 import { isValidTeamHex, teamToHex } from '../../utils/team'
 
-export default function TeamBuilderContainer({ clearLoadedTeam, isLoadedFromHex, setSearchParams, loadedTeamHex, setLoadedTeamHex, generation, versionGroup, team, isError, errorMessage, deleteMember, updateMember, setSelectedVariety, setSelectedPokemon }) {
+export default function TeamBuilderContainer({ clearLoadedTeam, isLoadFromHex, teamHex, setTeamHex, generation, versionGroup, team, isError, errorMessage, deleteMember, updateMember, setSelectedVariety, setSelectedPokemon }) {
 
     const [isShowCode, setIsShowCode] = useState(false);
-    const [inputHex, setInputHex] = useState(loadedTeamHex ?? "");
+    const [inputHex, setInputHex] = useState(teamHex ?? "");
 
     const loadHex = () => {
         if (isValidTeamHex(inputHex)) {
             console.log("setting...")
-            setLoadedTeamHex(inputHex);
+            setTeamHex(inputHex); 
+        } else {
+            console.log("invalid TeamHex, cannot load")
         }
     }
 
     return (
         <div>
             <div className={styles.loadSaveContainer}>
-                {isLoadedFromHex && 
+                {isLoadFromHex && 
                     <div>
                         <label>Current team is being loaded from code</label>
                         <button type='button' onClick={() => clearLoadedTeam()}>Clear</button>

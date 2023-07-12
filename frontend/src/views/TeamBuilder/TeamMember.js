@@ -28,7 +28,6 @@ export default function TeamMember({ versionGroup, member, deleteMember, updateM
             .map((move, index) => {return {id: index, name: move}});
 
     const uniqueAbilities = data.abilities.map((ability, index) => {return { id: index, name: formatName(ability.ability.name)}});
-    console.log(uniqueMoves)
     return (
         <>
             {member && <div className={classNames(styles.memberContainer, styles[`type1-${types[0]}`], styles[types[1] ? `type2-${types[1]}` : ""])}>
