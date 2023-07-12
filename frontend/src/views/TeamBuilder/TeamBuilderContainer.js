@@ -3,17 +3,38 @@ import TeamMember from './TeamMember'
 import TypeMatchups from './TypeMatchups'
 import styles from './TeamBuilderContainer.module.scss'
 import EmptyMember from './EmptyMember'
+import { isValidTeamHex, teamToHex } from '../../utils/team'
 
-export default function TeamBuilderContainer({ generation, versionGroup, team, isError, errorMessage, deleteMember, updateMember, setSelectedVariety, setSelectedPokemon }) {
+export default function TeamBuilderContainer({ clearLoadedTeam, isLoadedFromHex, setSearchParams, loadedTeamHex, setLoadedTeamHex, generation, versionGroup, team, isError, errorMessage, deleteMember, updateMember, setSelectedVariety, setSelectedPokemon }) {
+
+    const [isShowCode, setIsShowCode] = useState(false);
+    const [inputHex, setInputHex] = useState(loadedTeamHex ?? "");
+
+    const loadHex = () => {
+        if (isValidTeamHex(inputHex)) {
+            console.log("setting...")
+            setLoadedTeamHex(inputHex);
+        }
+    }
 
     return (
         <div>
-                <div className={styles.loadSaveContainer}>
-                    <label>Load Team: </label>
-                    <input />
-                    <button type='button'>Load</button>
-                    <button type='button'>Get Code</button>
-                </div>
+            <div className={styles.loadSaveContainer}>
+                {isLoadedFromHex && 
+                    <div>
+                        <label>Current team is being loaded from code</label>
+                        <button type='button' onClick={() => clearLoadedTeam()}>Clear</button>
+                        <button type='button' onClick={() => localStorage.setItem(`team-${versionGroup}`, teamToHex(team))}>Save</button>
+                    </div>}
+                <label>Load Team: </label>
+                <input 
+                    value={inputHex}
+                    onChange={(e) => setInputHex(e.target.value)}
+                />
+                <button type='button' onClick={() => loadHex()}>Load</button>
+                <button type='button' onClick={() => setIsShowCode(true)}>Get Code</button>
+                {isShowCode && <label>{teamToHex(team)}</label>}
+            </div>
             <div className={styles.teamBuilderContainer}>
 
                 { team.map((member, index) => (
