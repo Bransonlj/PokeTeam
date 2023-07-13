@@ -1,6 +1,6 @@
 import React from 'react'
 import classNames from 'classnames';
-import styles from './OffensiveMatchup.module.scss';
+import styles from './PokemonMatchup.module.scss';
 import { getSpriteURL } from '../../utils/urls';
 import { formatName } from '../../utils/formatters';
 
@@ -20,7 +20,7 @@ export default function DefensivePokemonMatchup({ matchup, id }) {
                     <label>Immune</label>
                     <div className={styles.matchupContainer}>
                         {immune.map(type => (
-                            <span className={classNames( styles.type, styles[type]) }>{formatName(type)}</span>
+                            <span key={type} className={classNames( styles.type, styles[type]) }>{formatName(type)}</span>
                         ))}
                     </div>
                 </div>
@@ -29,7 +29,7 @@ export default function DefensivePokemonMatchup({ matchup, id }) {
                     <label>Resist x4</label>
                     <div className={styles.matchupContainer}>
                         {x4resist.map(type => (
-                            <span className={classNames( styles.type, styles[type]) }>{formatName(type)}</span>
+                            <span key={type} className={classNames( styles.type, styles[type]) }>{formatName(type)}</span>
                         ))}
                     </div>
                 </div>
@@ -38,7 +38,7 @@ export default function DefensivePokemonMatchup({ matchup, id }) {
                     <label>Resist x2</label>
                     <div className={styles.matchupContainer}>
                         {x2resist.map(type => (
-                            <span className={classNames( styles.type, styles[type]) }>{formatName(type)}</span>
+                            <span key={type} className={classNames( styles.type, styles[type]) }>{formatName(type)}</span>
                         ))}
                     </div>
                 </div>
@@ -47,7 +47,7 @@ export default function DefensivePokemonMatchup({ matchup, id }) {
                     <label>Weakness x2</label>
                     <div className={styles.matchupContainer}>
                         {x2weak.map(type => (
-                            <span className={classNames( styles.type, styles[type]) }>{formatName(type)}</span>
+                            <span key={type} className={classNames( styles.type, styles[type]) }>{formatName(type)}</span>
                         ))}
                     </div>
                 </div>
@@ -56,7 +56,7 @@ export default function DefensivePokemonMatchup({ matchup, id }) {
                     <label>Weakness x4</label>
                     <div className={styles.matchupContainer}>
                         {x4weak.map(type => (
-                            <span className={classNames( styles.type, styles[type]) }>{formatName(type)}</span>
+                            <span key={type} className={classNames( styles.type, styles[type]) }>{formatName(type)}</span>
                         ))}
                     </div>
                 </div>

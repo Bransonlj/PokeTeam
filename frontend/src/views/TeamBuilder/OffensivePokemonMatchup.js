@@ -1,10 +1,9 @@
 import { getSpriteURL } from "../../utils/urls";
-import styles from './OffensiveMatchup.module.scss'
+import styles from './PokemonMatchup.module.scss'
 import classNames from "classnames";
 import { formatName } from '../../utils/formatters'
-import useFetchVariety from "../hooks/useFetchVariety";
 
-export default function OffensiveMatchup({ matchup, id }) {
+export default function OffensivePokemonMatchup({ matchup, id }) {
 
     const supereffective = Object.keys(matchup).filter(type => matchup[type] > 1);
     const inefffective = Object.keys(matchup).filter(type => matchup[type] < 1 && matchup[type] > 0);
@@ -18,7 +17,7 @@ export default function OffensiveMatchup({ matchup, id }) {
                     <label>Super Effective</label>
                     <div className={styles.matchupContainer}>
                         {supereffective.map(type => (
-                            <span className={classNames( styles.type, styles[type]) }>{formatName(type)}</span>
+                            <span key={type} className={classNames( styles.type, styles[type]) }>{formatName(type)}</span>
                         ))}
                     </div>
                 </div>
@@ -26,7 +25,7 @@ export default function OffensiveMatchup({ matchup, id }) {
                     <label>Not Effective</label>
                     <div className={styles.matchupContainer}>
                         {inefffective.map(type => (
-                            <span className={classNames( styles.type, styles[type]) }>{formatName(type)}</span>
+                            <span key={type} className={classNames( styles.type, styles[type]) }>{formatName(type)}</span>
                         ))}
                     </div>
                 </div>
@@ -34,7 +33,7 @@ export default function OffensiveMatchup({ matchup, id }) {
                     <label>Immune</label>
                     <div className={styles.matchupContainer}>
                         {immune.map(type => (
-                            <span className={classNames( styles.type, styles[type]) }>{formatName(type)}</span>
+                            <span key={type} className={classNames( styles.type, styles[type]) }>{formatName(type)}</span>
                         ))}
                     </div>
                 </div>

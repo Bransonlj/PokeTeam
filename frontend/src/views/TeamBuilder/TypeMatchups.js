@@ -4,7 +4,7 @@ import { useQueries } from '@tanstack/react-query'
 import axios from 'axios'
 import IndividualType from './IndividualType'
 import styles from './TypeMatchups.module.scss'
-import OffensiveMatchup from './OffensiveMatchup'
+import OffensivePokemonMatchup from './OffensivePokemonMatchup'
 import classNames from 'classnames'
 import ThemedBox from '../components/ThemedBox'
 import DefensivePokemonMatchup from './DefensivePokemonMatchup'
@@ -146,7 +146,7 @@ export default function TypeMatchups({ team, generation }) {
 
             { selectedView === Views.DEFENSIVE_POKEMON && <div className={styles.typeContainer}>
                 {allDefensiveMatchups.map((matchup, index) => (
-                    <ThemedBox type1={typesInTeamResults[index].data.types[0]} type2={typesInTeamResults[index].data.types[1] !== "null" ? typesInTeamResults[index].data.types[1] : ""}>
+                    <ThemedBox key={index} type1={typesInTeamResults[index].data.types[0]} type2={typesInTeamResults[index].data.types[1] !== "null" ? typesInTeamResults[index].data.types[1] : ""}>
                         <DefensivePokemonMatchup matchup={matchup} id={team[index].id} />
                     </ThemedBox>
                 ))
@@ -172,8 +172,8 @@ export default function TypeMatchups({ team, generation }) {
 
             { selectedView === Views.OFFENSIVE_POKEMON && <div className={styles.typeContainer}>
                 {allOffensiveMatchups.map((matchup, index) => (
-                    <ThemedBox type1={typesInTeamResults[index].data.types[0]} type2={typesInTeamResults[index].data.types[1] !== "null" ? typesInTeamResults[index].data.types[1] : ""}>
-                        <OffensiveMatchup matchup={matchup} id={team[index].id} />
+                    <ThemedBox key={index} type1={typesInTeamResults[index].data.types[0]} type2={typesInTeamResults[index].data.types[1] !== "null" ? typesInTeamResults[index].data.types[1] : ""}>
+                        <OffensivePokemonMatchup matchup={matchup} id={team[index].id} />
                     </ThemedBox>
                 ))
                 }
