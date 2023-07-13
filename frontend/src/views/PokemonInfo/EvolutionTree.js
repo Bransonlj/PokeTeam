@@ -32,8 +32,8 @@ export default function EvolutionTree({ tree, setSelectedVariety, setSelectedPok
             <div className={styles.evolutionCard}>
                 <div className={styles.evolutionMethod}>
                     { evolutionVarieties.length > 1 ? tree.value.evolution_details.map((detail, index) => (
-                            <Tippy content={METHOD_WARNING_STRING}>
-                                <label key={index}>{formatEvolutionDetails(detail)}</label>
+                            <Tippy key={index} content={METHOD_WARNING_STRING}>
+                                <label>{formatEvolutionDetails(detail)}</label>
                             </Tippy>
                             )) : tree.value.evolution_details.map((detail, index) => (
                                 <label key={index}>{formatEvolutionDetails(detail)}</label>

@@ -1,5 +1,41 @@
-.typeContainer {
+@use '../../styles/colours.scss';
+
+.container {
+    border: 1px colours.$black solid;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background-color: colours.$blue;
+}
+
+.selectorContainer {
     display: flex;
     flex-direction: row;
+    justify-content: flex-start;
+    padding-top: 5px;
+    padding-left: 20px;
+}
+
+.selector {
+    padding: 5px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+
+    &:hover {
+        background-color: colours.$light-blue;
+        cursor: pointer;
+    }
+
+    &.active {
+        background-color: colours.$light-grey;
+    }
+}
+
+.typeContainer {
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
     flex-wrap: wrap;
+    background-color: colours.$light-grey;
+    gap: 5px;
 }

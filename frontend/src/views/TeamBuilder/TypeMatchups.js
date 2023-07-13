@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import { calculateRelations, getGenericMatchup } from '../../utils/types'
+import { calculateDefensiveRelations, calculateOffensiveRelations, getGenericMatchup } from '../../utils/types'
 import { useQueries } from '@tanstack/react-query'
 import axios from 'axios'
 import IndividualType from './IndividualType'
 import styles from './TypeMatchups.module.scss'
+import OffensiveMatchup from './OffensiveMatchup'
+import classNames from 'classnames'
+import ThemedBox from '../components/ThemedBox'
+import DefensivePokemonMatchup from './DefensivePokemonMatchup'
 
 // groups each pokemon types into pairs (an array). single type pokemon have "null as their secondary type".
 const getTypes = (data) => {
@@ -16,9 +20,17 @@ const getTypes = (data) => {
     }
 }
 
+const Views = {
+    DEFENSIVE_TYPE: "defensive-type",
+    DEFENSIVE_POKEMON: "defensive-pokemon",
+    OFFENSIVE_TYPE: "offensive-type",
+    OFFENSIVE_POKEMON: "offensive-pokemon",
+}
+
 export default function TypeMatchups({ team, generation }) {
 
     const [allTypes, setAllTypes] = useState([]);
+    const [selectedView, setSelectedView] = useState(Views.DEFENSIVE_POKEMON);
 
     const typesInTeamQueries = team.map(member => {
         return {
@@ -96,14 +108,30 @@ export default function TypeMatchups({ team, generation }) {
     const groupedTypes = [];
     while(allTypesResults.length) groupedTypes.push(allTypesResults.splice(0,2));
     // for Each typepair, get the matchups against all types e.g. {fire: 0.5, water: 2...}
-    const allMatchups = (groupedTypes.map(typeGroup => calculateRelations(generation, typeGroup[0].data, typeGroup[1].data)));
+    const allDefensiveMatchups = (groupedTypes.map(typeGroup => calculateDefensiveRelations(generation, typeGroup[0].data, typeGroup[1].data)));
+    const allOffensiveMatchups = (groupedTypes.map(typeGroup => calculateOffensiveRelations(generation, typeGroup[0].data, typeGroup[1].data)));
 
     return (
-        <div>
-            <div className={styles.typeContainer}>
+        <div className={styles.container}>
+            <div className={styles.selectorContainer}>
+                <label className={classNames(styles.selector, selectedView === Views.DEFENSIVE_POKEMON ? styles.active : "")} 
+                    onClick={() => setSelectedView(Views.DEFENSIVE_POKEMON)}>Pokemon: Defence
+                </label>
+                <label className={classNames(styles.selector, selectedView === Views.OFFENSIVE_POKEMON ? styles.active : "")} 
+                    onClick={() => setSelectedView(Views.OFFENSIVE_POKEMON)}>Pokemon: Offence
+                </label>
+                <label className={classNames(styles.selector, selectedView === Views.DEFENSIVE_TYPE ? styles.active : "")} 
+                    onClick={() => setSelectedView(Views.DEFENSIVE_TYPE)}>Types: Defence
+                </label>
+
+                <label className={classNames(styles.selector, selectedView === Views.OFFENSIVE_TYPE ? styles.active : "")} 
+                    onClick={() => setSelectedView(Views.OFFENSIVE_TYPE)}>Types: Offence
+                </label>
+            </div>
+            { selectedView === Views.DEFENSIVE_TYPE && <div className={styles.typeContainer}>
                 {allTypes.map(type => {
                     // For each type, get each member's matchup against it as and object array [{id, value}], to be passed to component
-                    const eachMemberThisTypeMatchup = allMatchups.map((matchup, index) => {
+                    const eachMemberThisTypeMatchup = allDefensiveMatchups.map((matchup, index) => {
                         return {
                             id: team[index].id,
                             value: matchup[type],
@@ -114,7 +142,43 @@ export default function TypeMatchups({ team, generation }) {
                         <IndividualType key={type} type={type} pokemonMatchups={eachMemberThisTypeMatchup} />
                     )
                 })}
-            </div>
+            </div> }
+
+            { selectedView === Views.DEFENSIVE_POKEMON && <div className={styles.typeContainer}>
+                {allDefensiveMatchups.map((matchup, index) => (
+                    <ThemedBox type1={typesInTeamResults[index].data.types[0]} type2={typesInTeamResults[index].data.types[1] !== "null" ? typesInTeamResults[index].data.types[1] : ""}>
+                        <DefensivePokemonMatchup matchup={matchup} id={team[index].id} />
+                    </ThemedBox>
+                ))
+                }
+
+            </div> }
+
+            { selectedView === Views.OFFENSIVE_TYPE && <div className={styles.typeContainer}>
+                {allTypes.map(type => {
+                    // For each type, get each member's matchup against it as and object array [{id, value}], to be passed to component
+                    const eachMemberThisTypeMatchup = allOffensiveMatchups.map((matchup, index) => {
+                        return {
+                            id: team[index].id,
+                            value: matchup[type],
+                        }
+                    })
+
+                    return (
+                        <IndividualType key={type} type={type} pokemonMatchups={eachMemberThisTypeMatchup} />
+                    )
+                })}
+            </div> }
+
+            { selectedView === Views.OFFENSIVE_POKEMON && <div className={styles.typeContainer}>
+                {allOffensiveMatchups.map((matchup, index) => (
+                    <ThemedBox type1={typesInTeamResults[index].data.types[0]} type2={typesInTeamResults[index].data.types[1] !== "null" ? typesInTeamResults[index].data.types[1] : ""}>
+                        <OffensiveMatchup matchup={matchup} id={team[index].id} />
+                    </ThemedBox>
+                ))
+                }
+
+            </div> }
         </div>
     )
 }

@@ -21,6 +21,7 @@ const GENERIC_MATCHUP = {
     fairy: 1,
 }
 
+// get object with all types at value 0, but filter out some types based on generation.
 export function getGenericMatchup(generation) {
     const clonedMatchup = structuredClone(GENERIC_MATCHUP);
     if (generation < 2) {
@@ -34,7 +35,7 @@ export function getGenericMatchup(generation) {
     return clonedMatchup;
 }
 
-
+// based on the generation, check for past damage relations and determine which to use.
 export function getRelationToUse(type, generation) {
     if (!type) {
         return;
@@ -58,7 +59,7 @@ export function getRelationToUse(type, generation) {
     return type.damage_relations;
 }
 
-export function getAllTypesDamageRelation(damageRelations, generation) {
+export function getAllTypesDefensiveDamageRelation(damageRelations, generation) {
     if (!damageRelations) {
         return;
     }
@@ -70,17 +71,51 @@ export function getAllTypesDamageRelation(damageRelations, generation) {
     return matchups;
 }
 
-export function calculateRelations(generation, type1, type2=null) { 
+export function getAllTypesOffensiveDamageRelation(damageRelations, generation) {
+    if (!damageRelations) {
+        return;
+    }
+
+    const matchups = getGenericMatchup(generation)
+    damageRelations.double_damage_to.map(type => matchups[type.name] *= 2);
+    damageRelations.half_damage_to.map(type => matchups[type.name] *= 0.5);
+    damageRelations.no_damage_to.map(type => matchups[type.name] *= 0);
+    return matchups;
+}
+
+export function calculateDefensiveRelations(generation, type1, type2=null) { 
     const type1Relations = getRelationToUse(type1, generation);
     const type2Relations = getRelationToUse(type2, generation);
 
-    const type1Matchups = getAllTypesDamageRelation(type1Relations, generation);
-    const type2Matchups = getAllTypesDamageRelation(type2Relations, generation);
+    const type1Matchups = getAllTypesDefensiveDamageRelation(type1Relations, generation);
+    const type2Matchups = getAllTypesDefensiveDamageRelation(type2Relations, generation);
 
     if (type2) {
         Object.keys(type1Matchups).map(type => {
             type1Matchups[type] *= type2Matchups[type];
         })
+    }
+
+    return type1Matchups;
+}
+
+
+export function calculateOffensiveRelations(generation, type1, type2=null) { 
+    const type1Relations = getRelationToUse(type1, generation);
+    const type2Relations = getRelationToUse(type2, generation);
+
+    const type1Matchups = getAllTypesOffensiveDamageRelation(type1Relations, generation);
+    const type2Matchups = getAllTypesOffensiveDamageRelation(type2Relations, generation);
+    // for offensive relation, we are more optimistic. For pokemon with 2 types, we take only the better matchup (higher value)
+    if (type2) {
+
+        Object.keys(type1Matchups).map(type => {
+                if (type1Matchups[type] < type2Matchups[type]) {
+                    type1Matchups[type] = type2Matchups[type];
+                }
+                // inplace modification of type1Matchups object, no return value.
+            }
+        )
     }
 
     return type1Matchups;

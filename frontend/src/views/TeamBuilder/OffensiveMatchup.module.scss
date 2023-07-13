@@ -1,0 +1,26 @@
+@use '../../styles/types.scss';
+@use '../../styles/colours.scss';
+
+.container {
+    width: 250px;
+
+    .sprite {
+        background-color: colours.$light-grey;
+        border-radius: 10px;
+    }
+}
+
+.allMatchups {
+    background-color: colours.$medium-light-grey;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.matchupContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 5px;
+    background-color: colours.$light-grey;
+    border-radius: 10px;
+}

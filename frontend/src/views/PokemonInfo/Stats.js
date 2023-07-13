@@ -37,7 +37,7 @@ export default function Stats({ stats, types }) {
                         <tbody>
                             {
                                 Object.keys(StatKeys).map(stat => (
-                                    <tr>
+                                    <tr key={stat}>
                                         <th>{StatKeys[stat].label}: {getStatValue(StatKeys[stat].value, stats)}</th>
                                         <td className={styles.statBarCell}>
                                             <div className={styles.statBar} style={statBarStyle(getStatValue(StatKeys[stat].value, stats))} />

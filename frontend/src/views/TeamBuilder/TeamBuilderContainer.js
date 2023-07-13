@@ -4,6 +4,7 @@ import TypeMatchups from './TypeMatchups'
 import styles from './TeamBuilderContainer.module.scss'
 import EmptyMember from './EmptyMember'
 import { teamToHex } from '../../utils/team'
+import Tippy from '@tippyjs/react'
 
 export default function TeamBuilderContainer({ clearError, isErrorLoadingHex, clearLoadedTeam, isLoadFromHex, teamHex, setTeamHex, generation, versionGroup, team, isError, errorMessage, deleteMember, updateMember, setSelectedVariety, setSelectedPokemon }) {
 
@@ -49,14 +50,22 @@ export default function TeamBuilderContainer({ clearError, isErrorLoadingHex, cl
                         <button type='button' onClick={saveTeam}>Save</button>
                     </div>
                 }
-                <label>Load Team: </label>
+                <label>Code: </label>
                 <input 
                     value={inputHex}
                     onChange={(e) => setInputHex(e.target.value)}
                 />
-                <button type='button' onClick={() => loadHex()}>Load</button>
-                <button type='button' onClick={() => setIsShowCode(true)}>Get Code</button>
-                {isShowCode && <label>{teamToHex(team)}</label>}
+                <button type='button' onClick={() => loadHex()}>Load Team</button>
+                <button type='button' onClick={() => setIsShowCode(!isShowCode)}>Share Team</button>
+                {isShowCode &&<div>
+                    <label>Code:</label>
+                    <input readOnly={true} value={teamToHex(team)} />
+                    <button onClick={() => navigator.clipboard.writeText(teamToHex(team))}>Copy</button>
+                    <label>Link:</label>
+                    <input readOnly={true} value={window.location.href.split("?")[0] + "?team=" + teamToHex(team)}/>
+                    <button onClick={() => navigator.clipboard.writeText(window.location.href.split("?")[0] + "?team=" + teamToHex(team))}>Copy</button>
+                </div>
+                }   
             </div>
             <div className={styles.teamBuilderContainer}>
 
@@ -82,7 +91,9 @@ export default function TeamBuilderContainer({ clearError, isErrorLoadingHex, cl
                     ))
                 }
             </div>
-            <h2>Team Analysis</h2>
+            <Tippy content={<p>Type matchups does not take into account pokemon abilites that can affect specific matchups (e.g. Levitate, Flash Fire)</p>}>
+                <h2>Team Analysis</h2>
+            </Tippy>
             <TypeMatchups team={team} generation={generation} />
 
         </div>

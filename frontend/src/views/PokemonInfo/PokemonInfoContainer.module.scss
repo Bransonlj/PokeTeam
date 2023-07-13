@@ -7,9 +7,9 @@ $selector-height: 30px;
     min-height: 50%;
 
     box-sizing: border-box;
-    border: 1px black solid;
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
+    border: 1px colours.$black solid;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
     padding-top: 5px;
     margin: 5px;
     margin-bottom: 0px;
