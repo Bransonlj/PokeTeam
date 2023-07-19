@@ -10,6 +10,7 @@ export default function GenerationNav() {
   return (
     <div className={styles.container} style={{ height: `100%` }}>
       <nav className={styles.navbar}>
+        <NavLink to="/home">Home</NavLink>
         <NavLink className={activeClassName} to="/generation/1">Gen i</NavLink>
         <NavLink className={activeClassName} to="/generation/2">Gen ii</NavLink>
         <NavLink className={activeClassName} to="/generation/3">Gen iii</NavLink>

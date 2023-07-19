@@ -12,12 +12,15 @@ import {
 import VersionNav from './views/layout/VersionNav';
 import GenerationNav from './views/layout/GenerationNav';
 import MainContainer from './views/MainContainer';
+import HomePage from './views/HomePage/HomePage';
 
 const queryClient = new QueryClient()
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<GenerationNav/>}>
+      <Route index element={ <Navigate to="/home" /> }></Route>
+      <Route path="home" element={ <HomePage /> }></Route>
       <Route path="generation/:gen" element={<VersionNav />}>
         <Route path=":version" element={<MainContainer />}></Route>
       </Route>
