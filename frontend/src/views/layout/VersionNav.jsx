@@ -3,6 +3,7 @@ import axios from 'axios'
 import React from 'react'
 import { NavLink, Outlet, useParams } from 'react-router-dom'
 import styles from './VersionNav.module.scss';
+import { useBaseURL } from '../../utils/urls';
 
 const VERSION_GROUP_EXCLUSION_LIST = [
     "colosseum",
@@ -36,7 +37,7 @@ export default function VersionNav() {
                 {data.version_groups.map((version, index) => {
                     if (!VERSION_GROUP_EXCLUSION_LIST.includes(version.name)) {
                         return (
-                            <NavLink className={activeClassName} key={index} to={`/generation/${gen}/${version.name}`}><img className={styles.versionLogo} src={`/versions/${version.name}.png`} alt={version.name} /></NavLink>
+                            <NavLink className={activeClassName} key={index} to={useBaseURL(`/generation/${gen}/${version.name}`)}><img className={styles.versionLogo} src={useBaseURL(`/versions/${version.name}.png`)} alt={version.name} /></NavLink>
                         )
                     }
                 })}

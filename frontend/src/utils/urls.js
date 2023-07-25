@@ -10,3 +10,7 @@ export function urlToId(url) {
         return data[data.length - 2] //  last entry will be "", so get second last.
     }
 }
+
+export function useBaseURL(url) {
+    return (import.meta.env.BASE_URL + url);
+}
