@@ -51,7 +51,7 @@ function hexToNum(hex) {
  */
 export function createTeamFromHex(hexString) {
     if (!hexString) {
-        return;
+        return [];
     }
     return hexString.split(",").map(memberHex => {
         return {

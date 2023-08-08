@@ -10,6 +10,7 @@ import PokedexSelector from './PokemonList/PokedexSelector';
 import styles from './MainContainer.module.scss';
 import { createTeamFromHex, teamToHex } from '../utils/team';
 import useLoadingTeamHex from './hooks/useLoadingTeamHex';
+import { useTeamContext } from './hooks/useTeamContext';
 
 
 export default function MainContainer() {
@@ -21,41 +22,36 @@ export default function MainContainer() {
 
     const { teamHex, setTeamHex, isLoadFromHex, clearLoadedTeam, isError: isErrorLoadingHex , clearError } = useLoadingTeamHex();
 
-    const { team, 
-        isError, 
-        errorMessage, 
-        addMember,
-        deleteMember, 
-        updateMember, 
-        loadTeam 
-    } = useTeam(createTeamFromHex(localStorage.getItem(`team-${versionGroup}`)));
+    const { team, setTeam } = useTeamContext();
 
     // determine whether to load team from hexcode or localstorage.
     useEffect(() => {
         if (isLoadFromHex) {
-            loadTeam(createTeamFromHex(teamHex));
+            setTeam(createTeamFromHex(teamHex));
         } else {
-            loadTeam(createTeamFromHex(localStorage.getItem(`team-${versionGroup}`)));
+            setTeam(createTeamFromHex(localStorage.getItem(`team-${versionGroup}`)));
         }
 
     }, [isLoadFromHex])
 
     useEffect(() => {
-        // only save team to cache if not loading team from code.
-        if (!isLoadFromHex) {
-            localStorage.setItem(`team-${versionGroup}`, teamToHex(team))
-        }
-
-    }, [team])
-
-    useEffect(() => {
         // reload team and unselect pokemon when new versionGroup is selected.
         if (!isLoadFromHex) {
-            loadTeam(createTeamFromHex(localStorage.getItem(`team-${versionGroup}`)));
+            console.log("loading team from storage")
+            setTeam(createTeamFromHex(localStorage.getItem(`team-${versionGroup}`)));
         }
         setSelectedPokemon("")
         setSelectedVariety("");
     }, [versionGroup])
+
+    useEffect(() => {
+        // only save team to cache if not loading team from code.
+        if (!isLoadFromHex) {
+            console.log("saving to current team")
+            localStorage.setItem(`team-${versionGroup}`, teamToHex(team))
+        }
+
+    }, [team])
 
     const { isLoading, error, data, isFetching } = useQuery({
         queryKey: [versionGroup],
@@ -88,7 +84,6 @@ export default function MainContainer() {
                         className={styles.pokemonInfoContainer} 
                         pokemon={selectedPokemon} 
                         versionGroup={versionGroup} 
-                        addMember={addMember} 
                         selectedVariety={selectedVariety} 
                         setSelectedVariety={setSelectedVariety} 
                         setSelectedPokemon={setSelectedPokemon} /> }
@@ -103,11 +98,6 @@ export default function MainContainer() {
                     setTeamHex={setTeamHex}
                     generation={generation} 
                     versionGroup={versionGroup} 
-                    team={team} 
-                    isError={isError} 
-                    errorMessage={errorMessage} 
-                    deleteMember={deleteMember} 
-                    updateMember={updateMember} 
                     setSelectedVariety={setSelectedVariety} 
                     setSelectedPokemon={setSelectedPokemon} />
             </div>

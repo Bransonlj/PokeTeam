@@ -10,8 +10,9 @@ import styles from'./VarietyInfo.module.scss'
 import classNames from 'classnames'
 import ThemedBox from '../components/ThemedBox'
 import { formatName } from '../../utils/formatters'
+import { useTeamContext } from '../hooks/useTeamContext'
 
-export default function VarietyInfo({ species, variety, versionGroup, addMember }) {
+export default function VarietyInfo({ variety, versionGroup }) {
 
     const { isLoading, error, data, isFetching } = useQuery({
         queryKey: ['PokemonVarietyInfo', variety],
@@ -20,6 +21,9 @@ export default function VarietyInfo({ species, variety, versionGroup, addMember 
                 .get(`https://pokeapi.co/api/v2/pokemon/${variety}`)
                 .then((res) => res.data),
     })
+
+    const { addMember } = useTeamContext();
+
     if (isLoading) return 'Loading...'
 
     if (error) return 'An error has occurred: ' + error.message

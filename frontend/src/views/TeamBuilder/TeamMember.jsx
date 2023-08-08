@@ -9,15 +9,19 @@ import classNames from 'classnames';
 import './test.scss';
 import { formatName } from '../../utils/formatters';
 import useFetchVariety from '../hooks/useFetchVariety';
+import { useTeamContext } from '../hooks/useTeamContext';
 
-export default function TeamMember({ setIsTeamValid, versionGroup, member, deleteMember, updateMemeber, memberIndex, setSelectedVariety, setSelectedPokemon }) {
+export default function TeamMember({ setIsTeamValid, versionGroup, member, memberIndex, setSelectedVariety, setSelectedPokemon }) {
 
     // memeber object = {id, abilityIndex, move1Index...move4Index}
     const { isLoading, error, isError, data } = useFetchVariety(member.id);
 
+    const { updateMember, deleteMember } = useTeamContext()
+
     if (isLoading) return 'Loading...'
 
     if (isError) {
+        // error fetching from member pokemon id, assume invalid team member.
         setIsTeamValid(false);
         console.log(error.message)
         return (
@@ -58,7 +62,7 @@ export default function TeamMember({ setIsTeamValid, versionGroup, member, delet
                         textField='name'
                         placeholder='abilities'
                         value={uniqueAbilities[member.abilityIndex]}
-                        onChange={(value) => updateMemeber({...member, abilityIndex: value.id}, memberIndex)}
+                        onChange={(value) => updateMember("abilityIndex", value.id, memberIndex)}
                     />
                 </div>
                 <div className={styles.movesContainer}>
@@ -70,7 +74,7 @@ export default function TeamMember({ setIsTeamValid, versionGroup, member, delet
                             textField='name'
                             placeholder='select move...'
                             value={uniqueMoves[member.move1Index]}
-                            onChange={(value) => updateMemeber({...member, move1Index: value.id}, memberIndex)}
+                            onChange={(value) => updateMember("move1Index", value.id, memberIndex)}
                         />
                     </span>
                     <span className={styles.moveSelector}>
@@ -81,7 +85,7 @@ export default function TeamMember({ setIsTeamValid, versionGroup, member, delet
                             textField='name'
                             placeholder='select move...'
                             value={uniqueMoves[member.move2Index]}
-                            onChange={(value) => updateMemeber({...member, move2Index: value.id}, memberIndex)}
+                            onChange={(value) => updateMember("move2Index", value.id, memberIndex)}
                         />
                     </span>
                     <span className={styles.moveSelector}>
@@ -92,7 +96,7 @@ export default function TeamMember({ setIsTeamValid, versionGroup, member, delet
                             textField='name'
                             placeholder='select move...'
                             value={uniqueMoves[member.move3Index]}
-                            onChange={(value) => updateMemeber({...member, move3Index: value.id}, memberIndex)}
+                            onChange={(value) => updateMember("move3Index", value.id, memberIndex)}
                         />
                     </span>
                     <span className={styles.moveSelector}>
@@ -103,7 +107,7 @@ export default function TeamMember({ setIsTeamValid, versionGroup, member, delet
                             textField='name'
                             placeholder='select move...'
                             value={uniqueMoves[member.move4Index]}
-                            onChange={(value) => updateMemeber({...member, move4Index: value.id}, memberIndex)}
+                            onChange={(value) => updateMember("move4Index", value.id, memberIndex)}
                         />
                     </span>
                 </div>

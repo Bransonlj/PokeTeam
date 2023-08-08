@@ -5,14 +5,17 @@ import styles from './TeamBuilderContainer.module.scss'
 import EmptyMember from './EmptyMember'
 import { teamToHex } from '../../utils/team'
 import Tippy from '@tippyjs/react'
+import { useTeamContext } from '../hooks/useTeamContext'
 
-export default function TeamBuilderContainer({ clearError, isErrorLoadingHex, clearLoadedTeam, isLoadFromHex, teamHex, setTeamHex, generation, versionGroup, team, isError, errorMessage, deleteMember, updateMember, setSelectedVariety, setSelectedPokemon }) {
+export default function TeamBuilderContainer({ clearError, isErrorLoadingHex, clearLoadedTeam, isLoadFromHex, teamHex, setTeamHex, generation, versionGroup, setSelectedVariety, setSelectedPokemon }) {
 
     const [isShowCode, setIsShowCode] = useState(false);
     const [inputHex, setInputHex] = useState(teamHex ?? "");
 
     // use to prevent actions on invalid team (e.g. saving). Defaulted to true.
     const [isTeamValid, setIsTeamValid] = useState(true);
+
+    const { team } = useTeamContext();
 
     useEffect(() => {
         // reset to true if team changed, member component will check each member validity.
@@ -75,9 +78,7 @@ export default function TeamBuilderContainer({ clearError, isErrorLoadingHex, cl
                             setIsTeamValid={setIsTeamValid}
                             versionGroup={versionGroup} 
                             member={member} 
-                            deleteMember={deleteMember} 
                             memberIndex={index} 
-                            updateMemeber={updateMember} 
                             setSelectedVariety={setSelectedVariety} 
                             setSelectedPokemon={setSelectedPokemon} 
                         />

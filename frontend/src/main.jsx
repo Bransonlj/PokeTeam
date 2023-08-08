@@ -14,6 +14,7 @@ import GenerationNav from './views/layout/GenerationNav';
 import MainContainer from './views/MainContainer';
 import HomePage from './views/HomePage/HomePage';
 import { useBaseURL } from './utils/urls';
+import { TeamContextProvider } from './context/TeamContext';
 
 const queryClient = new QueryClient()
 
@@ -35,7 +36,9 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   //<React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
+      <TeamContextProvider>
+        <RouterProvider router={router} />
+      </TeamContextProvider>
     </QueryClientProvider>
   //</React.StrictMode>
 );

@@ -8,7 +8,7 @@ import Collapsible from '../components/Collapsible'
 import classNames from 'classnames';
 import { formatName } from '../../utils/formatters';
 
-export default function PokemonInfoContainer({ pokemon, versionGroup, addMember, selectedVariety, setSelectedVariety, setSelectedPokemon }) {
+export default function PokemonInfoContainer({ pokemon, versionGroup, selectedVariety, setSelectedVariety, setSelectedPokemon }) {
   const { isLoading, error, data, isFetching } = useQuery({
       queryKey: ['PokemonSpeciesInfo', pokemon],
       queryFn: () =>
@@ -45,7 +45,7 @@ export default function PokemonInfoContainer({ pokemon, versionGroup, addMember,
             <EvolutionInfo evolutionChainURL={data.evolution_chain.url} setSelectedVariety={setSelectedVariety} setSelectedPokemon={setSelectedPokemon}/>
           </Collapsible>
         </div>
-        {selectedVariety && <VarietyInfo species={pokemon} variety={selectedVariety} versionGroup={versionGroup} addMember={addMember} />}
+        {selectedVariety && <VarietyInfo variety={selectedVariety} versionGroup={versionGroup} />}
       </div>
     </div>
   )
