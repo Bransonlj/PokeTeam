@@ -7,7 +7,7 @@ import { teamToHex } from '../../utils/team'
 import Tippy from '@tippyjs/react'
 import { useTeamContext } from '../hooks/useTeamContext'
 
-export default function TeamBuilderContainer({ clearError, isErrorLoadingHex, clearLoadedTeam, isLoadFromHex, teamHex, setTeamHex, generation, versionGroup, setSelectedVariety, setSelectedPokemon }) {
+export default function TeamBuilderContainer({ clearError, isErrorLoadingHex, clearLoadedTeam, isLoadFromHex, teamHex, setTeamHex, generation, versionGroup }) {
 
     const [isShowCode, setIsShowCode] = useState(false);
     const [inputHex, setInputHex] = useState(teamHex ?? "");
@@ -79,8 +79,6 @@ export default function TeamBuilderContainer({ clearError, isErrorLoadingHex, cl
                             versionGroup={versionGroup} 
                             member={member} 
                             memberIndex={index} 
-                            setSelectedVariety={setSelectedVariety} 
-                            setSelectedPokemon={setSelectedPokemon} 
                         />
                     </div>
                 )) }

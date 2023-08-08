@@ -6,12 +6,15 @@ import { getSpriteURL, urlToId } from '../../utils/urls';
 import { formatEvolutionDetails, isStandardVariety } from '../../utils/formatters';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
+import { usePokemonContext } from '../hooks/usePokemonContext';
 
 const METHOD_WARNING_STRING = "Evolution methods for different varieties (i.e. Kantonian/Alolan Sandslash) are grouped together."
 
-export default function EvolutionTree({ tree, setSelectedVariety, setSelectedPokemon }) {
+export default function EvolutionTree({ tree }) {
 
     const pokemon = tree.value.pokemon;
+
+    const { setSpecies, setVariety } = usePokemonContext();
 
     const { isLoading, error, data, isFetching } = useQuery({
         queryKey: ['PokemonSpeciesInfo', pokemon],
@@ -47,14 +50,14 @@ export default function EvolutionTree({ tree, setSelectedVariety, setSelectedPok
                                 key={index}
                                 className={styles.sprite}
                                 src={getSpriteURL(urlToId(variety.pokemon.url))} 
-                                onClick={() => {setSelectedVariety(variety.pokemon.name); setSelectedPokemon(pokemon);}}
+                                onClick={() => {setVariety(variety.pokemon.name); setSpecies(pokemon);}}
                             />
                     )) }
                 </div>
             </div>
             <div className={styles.childrenEvolutionTreeContainer}>
             { tree.hasChildren() && tree.getChildren().map((child, index) => (
-                <EvolutionTree key={index} tree={child} setSelectedVariety={setSelectedVariety} setSelectedPokemon={setSelectedPokemon}/>
+                <EvolutionTree key={index} tree={child}/>
             )) }
             </div>
         </div>

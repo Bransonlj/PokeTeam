@@ -5,18 +5,18 @@ import { useParams, useSearchParams } from 'react-router-dom'
 import PokemonListContainer from './PokemonList/PokemonListContainer';
 import PokemonInfoContainer from './PokemonInfo/PokemonInfoContainer';
 import TeamBuilderContainer from './TeamBuilder/TeamBuilderContainer';
-import useTeam from './hooks/useTeam';
 import PokedexSelector from './PokemonList/PokedexSelector';
 import styles from './MainContainer.module.scss';
 import { createTeamFromHex, teamToHex } from '../utils/team';
 import useLoadingTeamHex from './hooks/useLoadingTeamHex';
 import { useTeamContext } from './hooks/useTeamContext';
+import { usePokemonContext } from './hooks/usePokemonContext';
 
 
 export default function MainContainer() {
     const [selectedPokedex, setSelectedPokedex] = useState("");
-    const [selectedPokemon, setSelectedPokemon] = useState("");
-    const [selectedVariety, setSelectedVariety] = useState("");
+
+    const { species, setSpecies, setVariety } = usePokemonContext();
 
     const { gen: generation, version: versionGroup } = useParams();
 
@@ -40,8 +40,8 @@ export default function MainContainer() {
             console.log("loading team from storage")
             setTeam(createTeamFromHex(localStorage.getItem(`team-${versionGroup}`)));
         }
-        setSelectedPokemon("")
-        setSelectedVariety("");
+        setSpecies("")
+        setVariety("");
     }, [versionGroup])
 
     useEffect(() => {
@@ -76,17 +76,13 @@ export default function MainContainer() {
                     />
                     { selectedPokedex && 
                         <PokemonListContainer 
-                            pokedex={ selectedPokedex } 
-                            setSelectedPokemon={(setSelectedPokemon)} /> }
+                            pokedex={ selectedPokedex } /> }
                 </div>
-                { selectedPokemon && 
+                { species && 
                     <PokemonInfoContainer 
                         className={styles.pokemonInfoContainer} 
-                        pokemon={selectedPokemon} 
-                        versionGroup={versionGroup} 
-                        selectedVariety={selectedVariety} 
-                        setSelectedVariety={setSelectedVariety} 
-                        setSelectedPokemon={setSelectedPokemon} /> }
+                        versionGroup={versionGroup} /> 
+                }
             </div>
             <div className={styles.teamBuilderContainer}>
                 <TeamBuilderContainer 
@@ -97,9 +93,7 @@ export default function MainContainer() {
                     teamHex={teamHex}
                     setTeamHex={setTeamHex}
                     generation={generation} 
-                    versionGroup={versionGroup} 
-                    setSelectedVariety={setSelectedVariety} 
-                    setSelectedPokemon={setSelectedPokemon} />
+                    versionGroup={versionGroup} />
             </div>
         </div>
     )

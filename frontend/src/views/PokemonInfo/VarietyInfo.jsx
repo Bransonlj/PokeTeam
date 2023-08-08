@@ -11,8 +11,12 @@ import classNames from 'classnames'
 import ThemedBox from '../components/ThemedBox'
 import { formatName } from '../../utils/formatters'
 import { useTeamContext } from '../hooks/useTeamContext'
+import { usePokemonContext } from '../hooks/usePokemonContext'
 
-export default function VarietyInfo({ variety, versionGroup }) {
+export default function VarietyInfo({ versionGroup }) {
+
+    const { addMember } = useTeamContext();
+    const { variety } = usePokemonContext();
 
     const { isLoading, error, data, isFetching } = useQuery({
         queryKey: ['PokemonVarietyInfo', variety],
@@ -21,8 +25,6 @@ export default function VarietyInfo({ variety, versionGroup }) {
                 .get(`https://pokeapi.co/api/v2/pokemon/${variety}`)
                 .then((res) => res.data),
     })
-
-    const { addMember } = useTeamContext();
 
     if (isLoading) return 'Loading...'
 
@@ -52,7 +54,7 @@ export default function VarietyInfo({ variety, versionGroup }) {
                         
                 </div>
             </ThemedBox>
-            <Location encounterURL={data.location_area_encounters} variety={variety} versionGroup={versionGroup} types={simpleTypes} />
+            <Location encounterURL={data.location_area_encounters} versionGroup={versionGroup} types={simpleTypes} />
             <MoveList moves={data.moves} version={versionGroup} type1={simpleTypes[0]} type2={simpleTypes[1]}/>
         </div>
     )

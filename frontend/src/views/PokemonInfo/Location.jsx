@@ -3,8 +3,11 @@ import axios from 'axios'
 import React from 'react'
 import styles from './Location.module.scss'
 import ThemedBox from '../components/ThemedBox'
+import { usePokemonContext } from '../hooks/usePokemonContext'
 
-export default function Location({ variety, encounterURL, versionGroup, types }) {
+export default function Location({ encounterURL, versionGroup, types }) {
+
+    const { variety } = usePokemonContext();
 
     const { isLoading: isLoadingVersions, error: versionsError, data: versionsData, isFetching: isFetchingVersions } = useQuery({
         queryKey: ['versionGroup', versionGroup],

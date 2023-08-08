@@ -5,8 +5,9 @@ import { FixedSizeList } from 'react-window'
 import styles from './PokemonListContainer.module.scss'
 import classNames from 'classnames'
 import { formatName } from '../../utils/formatters'
+import { usePokemonContext } from '../hooks/usePokemonContext'
 
-export default function PokemonListContainer({ pokedex, setSelectedPokemon }) {
+export default function PokemonListContainer({ pokedex }) {
     const [searchFilter, setSearchFilter] = useState("");
     const [pokemonList, setPokemonList] = useState();
 
@@ -20,6 +21,8 @@ export default function PokemonListContainer({ pokedex, setSelectedPokemon }) {
                 return res.data
             }),
     })
+
+    const { setSpecies } = usePokemonContext();
 
     // update pokemon list when searchFilter is updated
     useEffect(() => {
@@ -44,7 +47,10 @@ export default function PokemonListContainer({ pokedex, setSelectedPokemon }) {
 
         const name = pokemonList[index].pokemon_species.name;
         return (
-            <label className={classNames(styles.row, styles[index % 2 === 0 ? 'evenRow' : 'oddRow'])} style={style} onClick={() => setSelectedPokemon(name)}>{formatName(name)}</label>
+            <label className={classNames(styles.row, styles[index % 2 === 0 ? 'evenRow' : 'oddRow'])} 
+                style={style} 
+                onClick={() => setSpecies(name)}
+            >{formatName(name)}</label>
         )
     }
 

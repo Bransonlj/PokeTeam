@@ -10,13 +10,15 @@ import './test.scss';
 import { formatName } from '../../utils/formatters';
 import useFetchVariety from '../hooks/useFetchVariety';
 import { useTeamContext } from '../hooks/useTeamContext';
+import { usePokemonContext } from '../hooks/usePokemonContext';
 
-export default function TeamMember({ setIsTeamValid, versionGroup, member, memberIndex, setSelectedVariety, setSelectedPokemon }) {
+export default function TeamMember({ setIsTeamValid, versionGroup, member, memberIndex }) {
 
     // memeber object = {id, abilityIndex, move1Index...move4Index}
     const { isLoading, error, isError, data } = useFetchVariety(member.id);
 
-    const { updateMember, deleteMember } = useTeamContext()
+    const { updateMember, deleteMember } = useTeamContext();
+    const { setSpecies, setVariety } = usePokemonContext();
 
     if (isLoading) return 'Loading...'
 
@@ -46,11 +48,11 @@ export default function TeamMember({ setIsTeamValid, versionGroup, member, membe
             {member && <div className={classNames(styles.memberContainer, styles[`type1-${types[0]}`], styles[types[1] ? `type2-${types[1]}` : ""])}>
                 <div className={styles.infoContainer}>
                     <div className={styles.nameContainer}>
-                        <label onClick={ () => {setSelectedVariety(data.name); setSelectedPokemon(data.species.name);} }> { formatName(data.name) }</label>
+                        <label onClick={ () => {setVariety(data.name); setSpecies(data.species.name);} }> { formatName(data.name) }</label>
                         <button type='button' className={styles.removeButton} onClick={() => deleteMember(memberIndex)}>x</button>
                     </div>
                     
-                    <img className={styles.sprite} onClick={ () => {setSelectedVariety(data.name); setSelectedPokemon(data.species.name);} } src={getSpriteURL(member.id)}></img>
+                    <img className={styles.sprite} onClick={ () => {setVariety(data.name); setSpecies(data.species.name);} } src={getSpriteURL(member.id)}></img>
                     <div className={styles.typeContainer}>
                         <span className={classNames(styles.type, styles[types[0]])}>{ formatName(types[0]) }</span>
                         {types[1] && <span className={classNames(styles.type, styles[types[1]])}>{ formatName(types[1]) }</span>}

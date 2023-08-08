@@ -19,7 +19,7 @@ function processEvolutionChain(chain) {
     return node
 }
 
-export default function EvolutionInfo({ evolutionChainURL, setSelectedVariety, setSelectedPokemon }) {
+export default function EvolutionInfo({ evolutionChainURL }) {
 
     const { isLoading, error, data, isFetching } = useQuery({
         queryKey: ['EvolutionChain', urlToId(evolutionChainURL)],
@@ -37,7 +37,7 @@ export default function EvolutionInfo({ evolutionChainURL, setSelectedVariety, s
 
     return (
         <>
-            <EvolutionTree tree={evolutionTree} setSelectedVariety={setSelectedVariety} setSelectedPokemon={setSelectedPokemon} />
+            <EvolutionTree tree={evolutionTree} />
         </>
     )
 }
