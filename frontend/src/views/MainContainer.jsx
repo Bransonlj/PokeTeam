@@ -2,20 +2,16 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useParams, useSearchParams } from 'react-router-dom'
-import PokemonListContainer from './PokemonList/PokemonListContainer';
+import PokemonListContainer from './PokedexList/PokemonListContainer';
 import PokemonInfoContainer from './PokemonInfo/PokemonInfoContainer';
 import TeamBuilderContainer from './TeamBuilder/TeamBuilderContainer';
-import PokedexSelector from './PokemonList/PokedexSelector';
+import PokedexSelector from './PokedexList/PokedexSelector';
 import styles from './MainContainer.module.scss';
-import { createTeamFromHex, teamToHex } from '../utils/team';
-import useLoadingTeamHex from './hooks/useLoadingTeamHex';
-import { useTeamContext } from './hooks/useTeamContext';
 import { usePokemonContext } from './hooks/usePokemonContext';
+import PokedexListContainer from './PokedexList/PokedexListContainer';
 
 
 export default function MainContainer() {
-    const [selectedPokedex, setSelectedPokedex] = useState("");
-
     const { species, setSpecies, setVariety } = usePokemonContext();
     const { gen: generation, version: versionGroup } = useParams();
 
@@ -39,16 +35,7 @@ export default function MainContainer() {
     return (
         <div className={styles.mainContainer}>
             <div className={styles.pokedexContainer}>
-                <div className={styles.pokedexListContainer}>
-                    <PokedexSelector 
-                        selectedPokedex={selectedPokedex} 
-                        setSelectedPokedex={setSelectedPokedex} 
-                        pokedexes={data.pokedexes}
-                    />
-                    { selectedPokedex && 
-                        <PokemonListContainer 
-                            pokedex={ selectedPokedex } /> }
-                </div>
+                <PokedexListContainer pokedexes={data.pokedexes}/>
                 { species && 
                     <PokemonInfoContainer 
                         className={styles.pokemonInfoContainer} /> 

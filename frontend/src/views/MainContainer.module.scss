@@ -20,16 +20,6 @@ $min-width: 900px;
     align-items: flex-end;
     height: 100%;
 
-
-    .pokedexListContainer {
-        display: flex;
-        flex-direction: row;
-        border: 1px black solid;
-        border-radius: 5px;
-        padding: 5px;
-        margin: 5px;
-        background-color: colours.$medium-grey;
-    }
 }
 
 .teamBuilderContainer {
