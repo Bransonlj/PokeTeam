@@ -3,14 +3,15 @@
 const memberHexLength = 13;
 
 /**
- * Checks given object to verify if it is a valid team object to be loaded.
- * @param {*} teamObj 
+ * Verify if given teamHex is valid by attempting to fetch each pokemonID from API.
+ * @param {String} teamHex 
+ * @param {*} validCallback function to run if teamHex is valid
+ * @param {*} invalidCallback function to run if teamHex is invalid
  */
 export async function asyncValidateTeamHex(teamHex, validCallback, invalidCallback = () => {}) {
     if (!teamHex) {
         return false;
     }
-    // TODO check length and ID params if valid ID
 
     const teamQueries = await Promise.all(teamHex.split(",").map(async memberHex => {
         if (memberHex.length !== memberHexLength) {

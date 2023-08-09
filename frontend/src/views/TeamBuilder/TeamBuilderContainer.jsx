@@ -3,27 +3,50 @@ import TeamMember from './TeamMember'
 import TypeMatchups from './TypeMatchups'
 import styles from './TeamBuilderContainer.module.scss'
 import EmptyMember from './EmptyMember'
-import { teamToHex } from '../../utils/team'
+import { createTeamFromHex, teamToHex } from '../../utils/team'
 import Tippy from '@tippyjs/react'
 import { useTeamContext } from '../hooks/useTeamContext'
 import { useParams } from 'react-router-dom'
+import useLoadingTeamHex from '../hooks/useLoadingTeamHex'
 
-export default function TeamBuilderContainer({ clearError, isErrorLoadingHex, clearLoadedTeam, isLoadFromHex, teamHex, setTeamHex }) {
+export default function TeamBuilderContainer() {
 
+    const { team, setTeam } = useTeamContext();
+    const { version: versionGroup} = useParams();
+    const { teamHex, setTeamHex, isLoadFromHex, clearLoadedTeam, isError: isErrorLoadingHex , clearError } = useLoadingTeamHex();
     const [isShowCode, setIsShowCode] = useState(false);
     const [inputHex, setInputHex] = useState(teamHex ?? "");
-
-    // use to prevent actions on invalid team (e.g. saving). Defaulted to true.
+    // use to prevent actions on invalid team (e.g. saving). Default to true.
     const [isTeamValid, setIsTeamValid] = useState(true);
 
-    const { team } = useTeamContext();
-    const { version: versionGroup} = useParams();
 
     useEffect(() => {
-        // reset to true if team changed, member component will check each member validity.
+        // determine whether to load team from hexcode or localstorage.
+        if (isLoadFromHex) {
+            setTeam(createTeamFromHex(teamHex));
+        } else {
+            setTeam(createTeamFromHex(localStorage.getItem(`team-${versionGroup}`)));
+        }
+    }, [isLoadFromHex])
+
+    useEffect(() => {
+        // reload team from localstorage when new versionGroup is selected.
+        if (!isLoadFromHex) {
+            setTeam(createTeamFromHex(localStorage.getItem(`team-${versionGroup}`)));
+        }
+    }, [versionGroup])
+
+    useEffect(() => {
+        // reset to true once team changed, TeamMember individually check each member validity based on id and setIsTeamValid.
         setIsTeamValid(true)
+        if (!isLoadFromHex) {
+            // save current team to storage if not loading from code.
+            console.log("saving to current team")
+            localStorage.setItem(`team-${versionGroup}`, teamToHex(team))
+        }
     }, [team])
 
+    // --- functions ---
     const loadHex = () => {
         setTeamHex(inputHex);
     }

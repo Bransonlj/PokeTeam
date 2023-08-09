@@ -17,41 +17,13 @@ export default function MainContainer() {
     const [selectedPokedex, setSelectedPokedex] = useState("");
 
     const { species, setSpecies, setVariety } = usePokemonContext();
-
     const { gen: generation, version: versionGroup } = useParams();
 
-    const { teamHex, setTeamHex, isLoadFromHex, clearLoadedTeam, isError: isErrorLoadingHex , clearError } = useLoadingTeamHex();
-
-    const { team, setTeam } = useTeamContext();
-
-    // determine whether to load team from hexcode or localstorage.
     useEffect(() => {
-        if (isLoadFromHex) {
-            setTeam(createTeamFromHex(teamHex));
-        } else {
-            setTeam(createTeamFromHex(localStorage.getItem(`team-${versionGroup}`)));
-        }
-
-    }, [isLoadFromHex])
-
-    useEffect(() => {
-        // reload team and unselect pokemon when new versionGroup is selected.
-        if (!isLoadFromHex) {
-            console.log("loading team from storage")
-            setTeam(createTeamFromHex(localStorage.getItem(`team-${versionGroup}`)));
-        }
+        // unselect pokemon when new versionGroup is selected.
         setSpecies("")
         setVariety("");
     }, [versionGroup])
-
-    useEffect(() => {
-        // only save team to cache if not loading team from code.
-        if (!isLoadFromHex) {
-            console.log("saving to current team")
-            localStorage.setItem(`team-${versionGroup}`, teamToHex(team))
-        }
-
-    }, [team])
 
     const { isLoading, error, data, isFetching } = useQuery({
         queryKey: [versionGroup],
@@ -83,13 +55,7 @@ export default function MainContainer() {
                 }
             </div>
             <div className={styles.teamBuilderContainer}>
-                <TeamBuilderContainer 
-                    clearError={clearError}
-                    isErrorLoadingHex={isErrorLoadingHex}
-                    clearLoadedTeam={clearLoadedTeam}
-                    isLoadFromHex={isLoadFromHex}
-                    teamHex={teamHex}
-                    setTeamHex={setTeamHex} />
+                <TeamBuilderContainer />
             </div>
         </div>
     )
