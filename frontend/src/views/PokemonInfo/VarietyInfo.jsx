@@ -1,17 +1,16 @@
-import { useQuery } from '@tanstack/react-query'
-import axios from 'axios'
-import React from 'react'
-import MoveList from './MoveList'
-import Abilities from './Abilities'
-import Stats from './Stats'
-import Location from './Location'
-import { getSpriteURL } from '../../utils/urls'
-import styles from'./VarietyInfo.module.scss'
-import classNames from 'classnames'
-import ThemedBox from '../components/ThemedBox'
-import { formatName } from '../../utils/formatters'
-import { useTeamContext } from '../hooks/useTeamContext'
-import { usePokemonContext } from '../hooks/usePokemonContext'
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
+import MoveList from './MoveList';
+import Abilities from './Abilities';
+import Stats from './Stats';
+import Location from './Location';
+import { getSpriteURL } from '../../utils/urls';
+import styles from'./VarietyInfo.module.scss';
+import classNames from 'classnames';
+import ThemedBox from '../components/ThemedBox';
+import { formatName } from '../../utils/formatters';
+import { useTeamContext } from '../hooks/useTeamContext';
+import { usePokemonContext } from '../hooks/usePokemonContext';
 
 export default function VarietyInfo() {
 

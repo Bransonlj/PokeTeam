@@ -1,6 +1,5 @@
 import { useQueries } from '@tanstack/react-query'
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
 import MachineMovesTable from './MachineMovesTable'
 import GenericMovesTable from './GenericMovesTable'
 import LevelUpMovesTable from './LevelUpMovesTable'

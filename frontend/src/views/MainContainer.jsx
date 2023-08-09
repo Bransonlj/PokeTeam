@@ -1,11 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
-import { useParams, useSearchParams } from 'react-router-dom'
-import PokemonListContainer from './PokedexList/PokemonListContainer';
+import React, { useEffect } from 'react'
+import { useParams } from 'react-router-dom'
 import PokemonInfoContainer from './PokemonInfo/PokemonInfoContainer';
 import TeamBuilderContainer from './TeamBuilder/TeamBuilderContainer';
-import PokedexSelector from './PokedexList/PokedexSelector';
 import styles from './MainContainer.module.scss';
 import { usePokemonContext } from './hooks/usePokemonContext';
 import PokedexListContainer from './PokedexList/PokedexListContainer';

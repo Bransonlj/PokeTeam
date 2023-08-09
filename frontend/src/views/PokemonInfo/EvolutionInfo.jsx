@@ -1,7 +1,5 @@
-import React from 'react'
 import { urlToId } from '../../utils/urls'
 import { useQuery } from '@tanstack/react-query'
-
 import axios from 'axios'
 import { Tree } from '../../classes/Tree'
 import EvolutionTree from './EvolutionTree'

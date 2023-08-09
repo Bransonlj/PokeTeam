@@ -1,10 +1,10 @@
-import { useQuery } from '@tanstack/react-query'
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
+import { useEffect } from 'react';
 import VarietyInfo from './VarietyInfo';
 import EvolutionInfo from './EvolutionInfo';
-import styles from './PokemonInfoContainer.module.scss'
-import Collapsible from '../components/Collapsible'
+import styles from './PokemonInfoContainer.module.scss';
+import Collapsible from '../components/Collapsible';
 import classNames from 'classnames';
 import { formatName } from '../../utils/formatters';
 import { usePokemonContext } from '../hooks/usePokemonContext';

@@ -1,4 +1,3 @@
-import React from 'react'
 import classNames from 'classnames';
 import styles from './PokemonMatchup.module.scss';
 import { getSpriteURL } from '../../utils/urls';

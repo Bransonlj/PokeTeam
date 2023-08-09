@@ -1,4 +1,3 @@
-import React from 'react'
 import styles from './MovesTable.module.scss'
 import { formatName } from '../../utils/formatters';
 import ThemedBox from '../components/ThemedBox';

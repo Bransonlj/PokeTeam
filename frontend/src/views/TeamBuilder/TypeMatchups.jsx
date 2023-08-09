@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { calculateDefensiveRelations, calculateOffensiveRelations, getGenericMatchup } from '../../utils/types'
 import { useQueries } from '@tanstack/react-query'
 import axios from 'axios'

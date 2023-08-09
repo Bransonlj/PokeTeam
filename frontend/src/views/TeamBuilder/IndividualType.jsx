@@ -2,7 +2,6 @@ import React from 'react'
 import styles from './IndividualType.module.scss'
 import classNames from 'classnames'
 import { formatName } from '../../utils/formatters'
-import useFetchVariety from '../hooks/useFetchVariety'
 import { useQueries } from '@tanstack/react-query'
 import axios from 'axios'
 

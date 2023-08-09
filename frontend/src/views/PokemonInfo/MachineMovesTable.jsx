@@ -1,7 +1,6 @@
 import { useQueries } from '@tanstack/react-query';
 import axios from 'axios';
-import React from 'react'
-import styles from './MovesTable.module.scss'
+import styles from './MovesTable.module.scss';
 import { formatName } from '../../utils/formatters';
 import ThemedBox from '../components/ThemedBox';
 import { useParams } from 'react-router-dom';

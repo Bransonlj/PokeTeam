@@ -1,7 +1,4 @@
-import React from 'react'
 import { filterByVersion } from '../../utils/moves'
-import { useQuery } from '@tanstack/react-query'
-import axios from 'axios'
 import DropdownList from "react-widgets/DropdownList";
 import styles from './TeamMember.module.scss'
 import { getSpriteURL } from '../../utils/urls';
