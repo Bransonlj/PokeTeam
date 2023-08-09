@@ -6,8 +6,9 @@ import EmptyMember from './EmptyMember'
 import { teamToHex } from '../../utils/team'
 import Tippy from '@tippyjs/react'
 import { useTeamContext } from '../hooks/useTeamContext'
+import { useParams } from 'react-router-dom'
 
-export default function TeamBuilderContainer({ clearError, isErrorLoadingHex, clearLoadedTeam, isLoadFromHex, teamHex, setTeamHex, generation, versionGroup }) {
+export default function TeamBuilderContainer({ clearError, isErrorLoadingHex, clearLoadedTeam, isLoadFromHex, teamHex, setTeamHex }) {
 
     const [isShowCode, setIsShowCode] = useState(false);
     const [inputHex, setInputHex] = useState(teamHex ?? "");
@@ -16,6 +17,7 @@ export default function TeamBuilderContainer({ clearError, isErrorLoadingHex, cl
     const [isTeamValid, setIsTeamValid] = useState(true);
 
     const { team } = useTeamContext();
+    const { version: versionGroup} = useParams();
 
     useEffect(() => {
         // reset to true if team changed, member component will check each member validity.
@@ -76,7 +78,6 @@ export default function TeamBuilderContainer({ clearError, isErrorLoadingHex, cl
                     <div key={index} className={styles.memberContainer}>
                         <TeamMember 
                             setIsTeamValid={setIsTeamValid}
-                            versionGroup={versionGroup} 
                             member={member} 
                             memberIndex={index} 
                         />
@@ -93,7 +94,7 @@ export default function TeamBuilderContainer({ clearError, isErrorLoadingHex, cl
             <Tippy content={<p>Type matchups does not take into account pokemon abilites that can affect specific matchups (e.g. Levitate, Flash Fire)</p>}>
                 <h2>Team Analysis</h2>
             </Tippy>
-            <TypeMatchups team={team} generation={generation} />
+            <TypeMatchups team={team} />
 
         </div>
     )

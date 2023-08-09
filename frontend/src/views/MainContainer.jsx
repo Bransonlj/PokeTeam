@@ -71,8 +71,7 @@ export default function MainContainer() {
                     <PokedexSelector 
                         selectedPokedex={selectedPokedex} 
                         setSelectedPokedex={setSelectedPokedex} 
-                        pokedexes={data.pokedexes} 
-                        versionGroup={versionGroup} 
+                        pokedexes={data.pokedexes}
                     />
                     { selectedPokedex && 
                         <PokemonListContainer 
@@ -80,8 +79,7 @@ export default function MainContainer() {
                 </div>
                 { species && 
                     <PokemonInfoContainer 
-                        className={styles.pokemonInfoContainer} 
-                        versionGroup={versionGroup} /> 
+                        className={styles.pokemonInfoContainer} /> 
                 }
             </div>
             <div className={styles.teamBuilderContainer}>
@@ -91,9 +89,7 @@ export default function MainContainer() {
                     clearLoadedTeam={clearLoadedTeam}
                     isLoadFromHex={isLoadFromHex}
                     teamHex={teamHex}
-                    setTeamHex={setTeamHex}
-                    generation={generation} 
-                    versionGroup={versionGroup} />
+                    setTeamHex={setTeamHex} />
             </div>
         </div>
     )

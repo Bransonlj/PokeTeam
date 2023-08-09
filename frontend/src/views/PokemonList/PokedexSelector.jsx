@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react'
 import { formatName } from '../../utils/formatters';
 import styles from './PokedexSelector.module.scss'
+import { useParams } from 'react-router-dom';
 
-export default function PokedexSelector({ selectedPokedex, setSelectedPokedex, pokedexes, versionGroup }) {
+export default function PokedexSelector({ selectedPokedex, setSelectedPokedex, pokedexes }) {
 
     const EXCEPTIONS = [
         {
@@ -11,6 +12,8 @@ export default function PokedexSelector({ selectedPokedex, setSelectedPokedex, p
             
         }
     ]
+
+    const { version: versionGroup } = useParams();
 
     // if version group exists in list of exceptions, get list of pokedexes, else get empty array.
     const verifiedPokedexes = pokedexes.length > 0 ? (pokedexes.map(pokedex => pokedex.name)) : (EXCEPTIONS.find((obj) => obj.version === versionGroup)?.pokedexes ?? []);

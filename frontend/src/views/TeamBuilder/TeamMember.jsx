@@ -11,12 +11,13 @@ import { formatName } from '../../utils/formatters';
 import useFetchVariety from '../hooks/useFetchVariety';
 import { useTeamContext } from '../hooks/useTeamContext';
 import { usePokemonContext } from '../hooks/usePokemonContext';
+import { useParams } from 'react-router-dom';
 
-export default function TeamMember({ setIsTeamValid, versionGroup, member, memberIndex }) {
+export default function TeamMember({ setIsTeamValid, member, memberIndex }) {
 
     // memeber object = {id, abilityIndex, move1Index...move4Index}
     const { isLoading, error, isError, data } = useFetchVariety(member.id);
-
+    const { version: versionGroup } = useParams();
     const { updateMember, deleteMember } = useTeamContext();
     const { setSpecies, setVariety } = usePokemonContext();
 

@@ -1,13 +1,14 @@
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
-import React from 'react'
 import styles from './Location.module.scss'
 import ThemedBox from '../components/ThemedBox'
 import { usePokemonContext } from '../hooks/usePokemonContext'
+import { useParams } from 'react-router-dom'
 
-export default function Location({ encounterURL, versionGroup, types }) {
+export default function Location({ encounterURL, types }) {
 
     const { variety } = usePokemonContext();
+    const { version: versionGroup } = useParams()
 
     const { isLoading: isLoadingVersions, error: versionsError, data: versionsData, isFetching: isFetchingVersions } = useQuery({
         queryKey: ['versionGroup', versionGroup],

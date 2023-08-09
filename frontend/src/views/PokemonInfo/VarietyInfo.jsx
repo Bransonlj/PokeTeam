@@ -13,7 +13,7 @@ import { formatName } from '../../utils/formatters'
 import { useTeamContext } from '../hooks/useTeamContext'
 import { usePokemonContext } from '../hooks/usePokemonContext'
 
-export default function VarietyInfo({ versionGroup }) {
+export default function VarietyInfo() {
 
     const { addMember } = useTeamContext();
     const { variety } = usePokemonContext();
@@ -54,8 +54,8 @@ export default function VarietyInfo({ versionGroup }) {
                         
                 </div>
             </ThemedBox>
-            <Location encounterURL={data.location_area_encounters} versionGroup={versionGroup} types={simpleTypes} />
-            <MoveList moves={data.moves} version={versionGroup} type1={simpleTypes[0]} type2={simpleTypes[1]}/>
+            <Location encounterURL={data.location_area_encounters} types={simpleTypes} />
+            <MoveList moves={data.moves} type1={simpleTypes[0]} type2={simpleTypes[1]}/>
         </div>
     )
 }

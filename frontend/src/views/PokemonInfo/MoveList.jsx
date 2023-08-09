@@ -4,18 +4,21 @@ import React, { useEffect, useState } from 'react'
 import MachineMovesTable from './MachineMovesTable'
 import GenericMovesTable from './GenericMovesTable'
 import LevelUpMovesTable from './LevelUpMovesTable'
+import { useParams } from 'react-router-dom'
 
 // filters move array for move_learn_method matches given method.
 const filterMoves = (movesToFilter, method) => movesToFilter.filter(move => move.move_learn_method === method);
 
-export default function MoveList({ moves, version, type1, type2 }) {
+export default function MoveList({ moves, type1, type2 }) {
+
+  const { version: versionGroup } = useParams();
 
   // filters to moves learnable in specified version only.
   const versionMoves = moves.map(move => {
     return {
       ...move, 
       version_group_details: move.version_group_details
-          .filter(details => details.version_group.name === version)
+          .filter(details => details.version_group.name === versionGroup)
     }
   }).filter(move => move.version_group_details.length > 0)
 
@@ -57,7 +60,7 @@ export default function MoveList({ moves, version, type1, type2 }) {
     move.type = moveQueriesResults[index].data.type.name;
     move.category = moveQueriesResults[index].data.damage_class.name;
     // due to incomplete data in api, some moves may not have machine data for specific versions(eg. SV)
-    move.machineURL = moveQueriesResults[index].data.machines.filter(machine => machine.version_group.name === version)[0]?.machine.url;
+    move.machineURL = moveQueriesResults[index].data.machines.filter(machine => machine.version_group.name === versionGroup)[0]?.machine.url;
     return move;
   })
 
@@ -72,7 +75,7 @@ export default function MoveList({ moves, version, type1, type2 }) {
       <h2>Level Up Moves</h2>
       <LevelUpMovesTable moves={ levelUpMoves } type1={ type1 } type2={ type2 } />
       <h2>Machine Moves</h2>
-      <MachineMovesTable moves={ machineMoves } versionGroup={ version } type1={ type1 } type2={ type2 } />
+      <MachineMovesTable moves={ machineMoves } type1={ type1 } type2={ type2 } />
       <h2>Tutor Moves</h2>
       <GenericMovesTable moves={ tutorMoves } type1={ type1 } type2={ type2 } />
       <h2>Egg Moves</h2>

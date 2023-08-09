@@ -8,6 +8,7 @@ import OffensivePokemonMatchup from './OffensivePokemonMatchup'
 import classNames from 'classnames'
 import ThemedBox from '../components/ThemedBox'
 import DefensivePokemonMatchup from './DefensivePokemonMatchup'
+import { useParams } from 'react-router-dom'
 
 // groups each pokemon types into pairs (an array). single type pokemon have "null as their secondary type".
 const getTypes = (data) => {
@@ -27,10 +28,11 @@ const Views = {
     OFFENSIVE_POKEMON: "offensive-pokemon",
 }
 
-export default function TypeMatchups({ team, generation }) {
+export default function TypeMatchups({ team }) {
 
     const [allTypes, setAllTypes] = useState([]);
     const [selectedView, setSelectedView] = useState(Views.DEFENSIVE_POKEMON);
+    const { gen: generation } = useParams();
 
     const typesInTeamQueries = team.map(member => {
         return {

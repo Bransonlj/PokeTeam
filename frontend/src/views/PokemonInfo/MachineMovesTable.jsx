@@ -4,6 +4,7 @@ import React from 'react'
 import styles from './MovesTable.module.scss'
 import { formatName } from '../../utils/formatters';
 import ThemedBox from '../components/ThemedBox';
+import { useParams } from 'react-router-dom';
 
 const sortingFunction = (m1, m2) => {
     // if tm vs hm, sort tm first
@@ -14,7 +15,9 @@ const sortingFunction = (m1, m2) => {
     return m1 > m2 ? 1 : m1 < m2 ? -1 : 0;
 }
 
-export default function MachineMovesTable({ moves, versionGroup, type1, type2 }) {
+export default function MachineMovesTable({ moves, type1, type2 }) {
+
+    const { version: versionGroup } = useParams();
 
     const machineMoveQueries = moves.map(move => {
         return {
