@@ -1,5 +1,5 @@
-# PokeTeam Builder
-PokeTeam Builder is all in one team planner and builder for Pokemon with support for all main series games. 
+# PokeTeam
+PokeTeam is an all in one team planner and builder web-application for Pokemon with support for all main series games. PokeTeam allows you to view information of Pokemon while planning your team and lets you share your team with others!
 
 ## Features
 * Quick and easy sharing of pokemon teams with others via team code.
